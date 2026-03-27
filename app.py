@@ -2,6 +2,7 @@ from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 import sys
 import os
+import numpy as np
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
 
@@ -46,12 +47,67 @@ def predict():
         return jsonify({"error": "Both fighter1 and fighter2 are required"}), 400
         
     try:
-        winner, confidence, real_f1, real_f2 = predictor.predict_matchup(f1, f2)
+        winner, confidence, real_f1, real_f2, prob, f1_stats, f2_stats = predictor.predict_matchup(f1, f2)
+
+        def safe(val):
+            if val is None or (isinstance(val, float) and (np.isnan(val) or np.isinf(val))):
+                return None
+            if isinstance(val, (np.integer,)):
+                return int(val)
+            if isinstance(val, (np.floating,)):
+                return round(float(val), 1)
+            return val
+
+        def build_profile(stats):
+            wins = safe(stats.get('Wins', 0)) or 0
+            losses = safe(stats.get('Losses', 0)) or 0
+            draws = safe(stats.get('Draws', 0)) or 0
+            ko_wins = safe(stats.get('WinsByKO', 0)) or 0
+            sub_wins = safe(stats.get('WinsBySubmission', 0)) or 0
+            tko_wins = safe(stats.get('WinsByTKODoctorStoppage', 0)) or 0
+            dec_wins = (safe(stats.get('WinsByDecisionUnanimous', 0)) or 0) + \
+                       (safe(stats.get('WinsByDecisionSplit', 0)) or 0) + \
+                       (safe(stats.get('WinsByDecisionMajority', 0)) or 0)
+
+            height_cm = safe(stats.get('HeightCms'))
+            reach_cm = safe(stats.get('ReachCms'))
+
+            return {
+                "record": f"{wins}-{losses}-{draws}",
+                "wins": wins,
+                "losses": losses,
+                "draws": draws,
+                "koWins": ko_wins + (tko_wins or 0),
+                "subWins": sub_wins,
+                "decWins": dec_wins,
+                "avgSigStrLanded": safe(stats.get('AvgSigStrLanded')),
+                "avgSigStrPct": safe(stats.get('AvgSigStrPct')),
+                "avgTDLanded": safe(stats.get('AvgTDLanded')),
+                "avgTDPct": safe(stats.get('AvgTDPct')),
+                "avgSubAtt": safe(stats.get('AvgSubAtt')),
+                "height": f"{round(height_cm / 2.54)}\u2033" if height_cm else None,
+                "heightCm": height_cm,
+                "reach": f"{round(reach_cm / 2.54)}\u2033" if reach_cm else None,
+                "reachCm": reach_cm,
+                "weight": safe(stats.get('WeightLbs')),
+                "age": safe(stats.get('Age')),
+                "stance": stats.get('Stance') if isinstance(stats.get('Stance'), str) else None,
+                "currentWinStreak": safe(stats.get('CurrentWinStreak', 0)) or 0,
+                "currentLoseStreak": safe(stats.get('CurrentLoseStreak', 0)) or 0,
+                "longestWinStreak": safe(stats.get('LongestWinStreak', 0)) or 0,
+                "totalRounds": safe(stats.get('TotalRoundsFought', 0)) or 0,
+                "titleBouts": safe(stats.get('TotalTitleBouts', 0)) or 0,
+            }
+
         return jsonify({
             "fighter1": real_f1,
             "fighter2": real_f2,
             "winner": winner,
-            "confidence": confidence
+            "confidence": confidence,
+            "f1Prob": round(float(prob[1]), 4),
+            "f2Prob": round(float(prob[0]), 4),
+            "f1": build_profile(f1_stats),
+            "f2": build_profile(f2_stats),
         })
     except ValueError as e:
         return jsonify({"error": str(e)}), 404

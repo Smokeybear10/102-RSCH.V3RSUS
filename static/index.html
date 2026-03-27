@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STRATOS | UFC AI Predictor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:ital,wght@1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,68 +21,165 @@
         <div class="glow-orb orb-3"></div>
     </div>
 
-    <main class="container">
-        <header class="header">
-            <div class="logo-group">
-                <h1 class="logo">STRATOS</h1>
-                <span class="badge">AI PRO</span>
-            </div>
-            <p class="subtitle">Next-Generation MMA Predictive Analytics</p>
-            <p class="byline">by Thomas Ou</p>
-        </header>
+    <!-- ===== NAVBAR (persistent, sticky) ===== -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-logo">STRATOS</span>
+            <span class="nav-badge">AI PRO</span>
+        </div>
+        <div class="nav-links">
+            <a href="#predict" class="nav-link active" data-section="predict">Predict</a>
+            <a href="#results" class="nav-link" data-section="results" id="nav-results">Results</a>
+            <a href="https://github.com/thomasou" class="nav-link external" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </nav>
 
-        <section class="card glass-panel predictive-engine">
-            <div class="section-label">Predictive Engine</div>
-            <div class="matchup-container">
-                <div class="fighter-panel red-corner">
-                    <label>Fighter 1 <span class="corner-tag red">Red Corner</span></label>
-                    <div class="input-wrapper">
-                        <input type="text" id="fighter1" placeholder="Search Fighter..." autocomplete="off">
-                        <ul class="autocomplete-list" id="autocomplete1"></ul>
+    <main class="page">
+
+        <!-- ===== HERO SECTION ===== -->
+        <section class="hero" id="hero">
+            <h1 class="hero-title">STRATOS</h1>
+            <p class="hero-subtitle">Next-Generation MMA Predictive Analytics</p>
+            <p class="hero-byline">by Thomas Ou</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-value" id="fighter-count">—</span>
+                    <span class="hero-stat-label">Fighters</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value" id="fight-count">6,528</span>
+                    <span class="hero-stat-label">Fights Analyzed</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">LR</span>
+                    <span class="hero-stat-label">Logistic Regression</span>
+                </div>
+            </div>
+            <a href="#predict" class="scroll-cta">
+                <span>Start Predicting</span>
+                <span class="scroll-arrow">&#8595;</span>
+            </a>
+        </section>
+
+        <!-- ===== PREDICTIVE ENGINE ===== -->
+        <section class="section" id="predict">
+            <div class="card glass-panel predictive-engine">
+                <div class="section-label">Predictive Engine</div>
+                <div class="matchup-container">
+                    <div class="fighter-panel red-corner">
+                        <label>Fighter 1 <span class="corner-tag red">Red Corner</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" id="fighter1" placeholder="Search Fighter..." autocomplete="off">
+                            <ul class="autocomplete-list" id="autocomplete1"></ul>
+                        </div>
+                    </div>
+
+                    <div class="vs-badge">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="fighter-panel blue-corner">
+                        <label>Fighter 2 <span class="corner-tag blue">Blue Corner</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" id="fighter2" placeholder="Search Fighter..." autocomplete="off">
+                            <ul class="autocomplete-list" id="autocomplete2"></ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="vs-badge">
-                    <span>VS</span>
+                <div class="action-bar">
+                    <button id="predict-btn" class="primary-btn">
+                        <span class="btn-text">Generate Prediction</span>
+                        <div class="loader hidden"></div>
+                    </button>
                 </div>
-
-                <div class="fighter-panel blue-corner">
-                    <label>Fighter 2 <span class="corner-tag blue">Blue Corner</span></label>
-                    <div class="input-wrapper">
-                        <input type="text" id="fighter2" placeholder="Search Fighter..." autocomplete="off">
-                        <ul class="autocomplete-list" id="autocomplete2"></ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="action-bar">
-                <button id="predict-btn" class="primary-btn">
-                    <span class="btn-text">Generate Prediction</span>
-                    <div class="loader hidden"></div>
-                </button>
             </div>
         </section>
 
-        <section id="result-section" class="card glass-panel result-section hidden">
-            <div class="section-label">Simulation Result</div>
-            <div class="prediction-reveal">
-                <div class="winner-label">Predicted Winner</div>
-                <div class="winner-badge">
-                    <span id="winner-name">Khabib Nurmagomedov</span>
+        <!-- ===== RESULTS ===== -->
+        <section id="result-section" class="result-section hidden">
+
+            <!-- Probability Bar -->
+            <div class="card glass-panel prob-card" id="results">
+                <div class="section-label">Win Probability</div>
+                <div class="prob-header">
+                    <span id="prob-f1-name" class="prob-name red-text">Fighter 1</span>
+                    <span id="prob-f2-name" class="prob-name blue-text">Fighter 2</span>
                 </div>
-                <div class="confidence-meter">
-                    <div class="meter-bar-bg">
-                        <div id="confidence-fill" class="meter-fill"></div>
+                <div class="prob-bar-container">
+                    <div class="prob-bar">
+                        <div id="prob-f1-fill" class="prob-fill red-fill"></div>
+                        <div id="prob-f2-fill" class="prob-fill blue-fill"></div>
                     </div>
-                    <div class="metrics">
-                        <span>Win Probability</span>
-                        <span id="confidence-val" class="highlight">87.5%</span>
+                </div>
+                <div class="prob-header">
+                    <span id="prob-f1-val" class="prob-pct red-text">50%</span>
+                    <div class="winner-indicator">
+                        <span class="winner-arrow" id="winner-arrow">&#9664;</span>
+                        <span id="winner-name" class="winner-name-text">Winner</span>
+                        <span class="winner-arrow" id="winner-arrow-r">&#9654;</span>
                     </div>
+                    <span id="prob-f2-val" class="prob-pct blue-text">50%</span>
                 </div>
             </div>
-            <p class="analysis-text">Based on logistical regression analysis of career differential statistics across striking, grappling, and control dynamics.</p>
+
+            <!-- Fighter Profiles Side by Side -->
+            <div class="profiles-grid">
+                <div class="card glass-panel profile-card red-tint">
+                    <div class="profile-header">
+                        <span id="profile-f1-name" class="profile-name">Fighter 1</span>
+                        <span id="profile-f1-record" class="profile-record">0-0-0</span>
+                    </div>
+                    <div class="profile-meta">
+                        <span id="profile-f1-stance" class="meta-tag"></span>
+                        <span id="profile-f1-age" class="meta-tag"></span>
+                    </div>
+                    <div class="stat-grid" id="stats-f1"></div>
+                </div>
+                <div class="card glass-panel profile-card blue-tint">
+                    <div class="profile-header">
+                        <span id="profile-f2-name" class="profile-name">Fighter 2</span>
+                        <span id="profile-f2-record" class="profile-record">0-0-0</span>
+                    </div>
+                    <div class="profile-meta">
+                        <span id="profile-f2-stance" class="meta-tag"></span>
+                        <span id="profile-f2-age" class="meta-tag"></span>
+                    </div>
+                    <div class="stat-grid" id="stats-f2"></div>
+                </div>
+            </div>
+
+            <!-- Head to Head Comparison Bars -->
+            <div class="card glass-panel comparison-card">
+                <div class="section-label">Head-to-Head Comparison</div>
+                <div id="comparison-rows" class="comparison-rows"></div>
+            </div>
+
+            <!-- Win Method Breakdown -->
+            <div class="card glass-panel method-card">
+                <div class="section-label">Win Method Breakdown</div>
+                <div class="method-grid">
+                    <div class="method-col" id="method-f1"></div>
+                    <div class="method-labels" id="method-labels"></div>
+                    <div class="method-col" id="method-f2"></div>
+                </div>
+            </div>
+
+            <p class="analysis-text">Prediction generated via logistic regression on career differential statistics across striking, grappling, physical attributes, and control dynamics.</p>
         </section>
+
     </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <span class="footer-brand">STRATOS</span>
+            <span class="footer-sep">&middot;</span>
+            <span class="footer-text">Built by Thomas Ou</span>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

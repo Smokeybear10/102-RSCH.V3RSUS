@@ -133,8 +133,8 @@ class FightPredictor:
         X_scaled = self.scaler.transform(X_input)
         
         prob = self.model.predict_proba(X_scaled)[0]
-        
+
         winner = f1_actual if prob[1] > 0.5 else f2_actual
         confidence = max(prob)
-        
-        return winner, confidence, f1_actual, f2_actual
+
+        return winner, confidence, f1_actual, f2_actual, prob, f1_stats, f2_stats
