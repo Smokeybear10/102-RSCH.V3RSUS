@@ -3,96 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V3RSUS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>V3RSUS — MMA Predictive Analytics</title>
+    <meta name="description" content="AI-powered MMA fight prediction engine using ensemble machine learning on 6,500+ UFC fights.">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="sword.png">
     <link rel="apple-touch-icon" href="sword.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- ===== NAVBAR (persistent, sticky) ===== -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <img class="nav-icon" src="sword.png" alt="sword icon" width="22" height="22">
-            <div class="nav-brand-text">
-                <span class="nav-logo">V3RSUS</span>
-                <span class="nav-byline">by Thomas Ou</span>
-            </div>
-        </div>
-        <div class="nav-links">
-            <a href="#hero" class="nav-link" data-section="home">Home</a>
-            <a href="#predict" class="nav-link" data-section="predict" id="nav-predict">Predict</a>
-        </div>
-    </nav>
-
     <main class="page">
 
-        <!-- ===== HERO SECTION ===== -->
         <section class="hero" id="hero">
-            <h1 class="hero-title">V3RSUS</h1>
-            <p class="hero-subtitle">Next-Generation MMA Predictive Analytics</p>
+            <div class="title-screen">
+                <h1 class="title-mark">
+                    <span class="title-red">V</span><span class="title-bridge">3</span><span class="title-blue">RSUS</span>
+                </h1>
+                <div class="title-rule">
+                    <span class="rule-line rule-red"></span>
+                    <span class="rule-diamond"></span>
+                    <span class="rule-line rule-blue"></span>
+                </div>
+                <p class="title-byline">by Thomas Ou</p>
+            </div>
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="hero-stat-value" id="fighter-count">—</span>
+                    <span class="hero-stat-value" id="fighter-count">&mdash;</span>
                     <span class="hero-stat-label">Fighters</span>
                 </div>
                 <div class="hero-stat-divider"></div>
                 <div class="hero-stat">
-                    <span class="hero-stat-value" id="fight-count">6,528</span>
+                    <span class="hero-stat-value" id="fight-count">&mdash;</span>
                     <span class="hero-stat-label">Fights Analyzed</span>
                 </div>
                 <div class="hero-stat-divider"></div>
                 <div class="hero-stat">
-                    <span class="hero-stat-value">LR</span>
-                    <span class="hero-stat-label">Logistic Regression</span>
+                    <span class="hero-stat-value" id="feature-count">&mdash;</span>
+                    <span class="hero-stat-label">Features</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value">Ensemble</span>
+                    <span class="hero-stat-label">3 ML Models</span>
                 </div>
             </div>
-            <a href="#predict" class="scroll-cta">
-                <span>Start Predicting</span>
-                <span class="scroll-arrow">&#8595;</span>
-            </a>
-        </section>
-
-        <!-- ===== PREDICTIVE ENGINE ===== -->
-        <section class="section" id="predict">
-            <div class="card glass-panel predictive-engine">
-                <div class="section-label">Predictive Engine</div>
-                <div class="matchup-container">
-                    <div class="fighter-panel red-corner">
-                        <label>Fighter 1 <span class="corner-tag red">Red Corner</span></label>
-                        <div class="input-wrapper">
-                            <input type="text" id="fighter1" placeholder="Search Fighter..." autocomplete="off">
-                            <ul class="autocomplete-list" id="autocomplete1"></ul>
-                        </div>
-                    </div>
-
-                    <div class="vs-badge">
-                        <span>VS</span>
-                    </div>
-
-                    <div class="fighter-panel blue-corner">
-                        <label>Fighter 2 <span class="corner-tag blue">Blue Corner</span></label>
-                        <div class="input-wrapper">
-                            <input type="text" id="fighter2" placeholder="Search Fighter..." autocomplete="off">
-                            <ul class="autocomplete-list" id="autocomplete2"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="action-bar">
-                    <button id="predict-btn" class="primary-btn">
-                        <span class="btn-text">Generate Prediction</span>
-                        <div class="loader hidden"></div>
-                    </button>
-                </div>
+            <div class="hero-ctas">
+                <a href="#predict" class="cta-btn cta-primary">Start Predicting</a>
+                <a href="methodology.html" class="cta-btn cta-secondary">Methodology</a>
             </div>
         </section>
 
-        <!-- ===== RESULTS ===== -->
+        <section class="predict-page" id="predict">
+            <div class="predict-inner">
+                <div class="predict-header">
+                    <div class="predict-overline">Select Your Fighters</div>
+                    <h2 class="predict-title">Predict a Fight</h2>
+                    <p class="predict-desc">Choose two fighters and let the ensemble model analyze the matchup.</p>
+                </div>
+
+                <div class="card glass-panel predictive-engine">
+                    <div class="matchup-container">
+                        <div class="fighter-panel red-corner">
+                            <label>Fighter 1 <span class="corner-tag red">Red Corner</span></label>
+                            <div class="input-wrapper">
+                                <input type="text" id="fighter1" placeholder="Search Fighter..." autocomplete="off">
+                                <ul class="autocomplete-list" id="autocomplete1"></ul>
+                            </div>
+                        </div>
+
+                        <div class="vs-badge"><span>VS</span></div>
+
+                        <div class="fighter-panel blue-corner">
+                            <label>Fighter 2 <span class="corner-tag blue">Blue Corner</span></label>
+                            <div class="input-wrapper">
+                                <input type="text" id="fighter2" placeholder="Search Fighter..." autocomplete="off">
+                                <ul class="autocomplete-list" id="autocomplete2"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-bar">
+                        <button id="predict-btn" class="primary-btn">
+                            <span class="btn-text">Generate Prediction</span>
+                            <div class="loader hidden"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="result-section" class="result-section hidden">
 
-            <!-- Probability Bar -->
+            <!-- 1. Win Probability -->
             <div class="card glass-panel prob-card" id="results">
                 <div class="section-label">Win Probability</div>
                 <div class="prob-header">
@@ -116,7 +118,24 @@
                 </div>
             </div>
 
-            <!-- Fighter Profiles Side by Side -->
+            <!-- 2. Key Factors -->
+            <div class="card glass-panel factors-card">
+                <div class="section-label">Prediction Analysis</div>
+                <p class="section-desc">Top factors driving this prediction, ranked by model impact</p>
+                <div id="key-factors" class="factors-list"></div>
+            </div>
+
+            <!-- 3. Edge Analysis -->
+            <div class="card glass-panel edge-card">
+                <div class="section-label">Edge Analysis</div>
+                <div class="edge-header">
+                    <span id="edge-f1-name" class="prob-name red-text">Fighter 1</span>
+                    <span id="edge-f2-name" class="prob-name blue-text">Fighter 2</span>
+                </div>
+                <div id="category-edges" class="edge-list"></div>
+            </div>
+
+            <!-- 4. Fighter Profiles -->
             <div class="profiles-grid">
                 <div class="card glass-panel profile-card red-tint">
                     <div class="profile-header">
@@ -142,13 +161,13 @@
                 </div>
             </div>
 
-            <!-- Head to Head Comparison Bars -->
+            <!-- 5. Head-to-Head -->
             <div class="card glass-panel comparison-card">
                 <div class="section-label">Head-to-Head Comparison</div>
                 <div id="comparison-rows" class="comparison-rows"></div>
             </div>
 
-            <!-- Win Method Breakdown -->
+            <!-- 6. Win Methods -->
             <div class="card glass-panel method-card">
                 <div class="section-label">Win Method Breakdown</div>
                 <div class="method-grid">
@@ -158,12 +177,28 @@
                 </div>
             </div>
 
-            <p class="analysis-text">Prediction generated via logistic regression on career differential statistics across striking, grappling, physical attributes, and control dynamics.</p>
+            <!-- 7. Model Consensus -->
+            <div class="card glass-panel models-card">
+                <div class="section-label">Model Consensus</div>
+                <div class="models-header">
+                    <span id="models-f1-name" class="prob-name red-text">Fighter 1</span>
+                    <span id="models-f2-name" class="prob-name blue-text">Fighter 2</span>
+                </div>
+                <div id="model-breakdown" class="models-list"></div>
+            </div>
+
+            <!-- 8. Historical Matchups (conditional) -->
+            <div class="card glass-panel history-card hidden" id="history-card">
+                <div class="section-label">Past Matchups</div>
+                <div id="historical-matchups" class="history-list"></div>
+            </div>
+
+            <p class="analysis-text">Prediction generated via ensemble of Logistic Regression, Random Forest, and Gradient Boosting trained on career differential statistics across striking, grappling, physical attributes, and experience.</p>
         </section>
+
 
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="footer-inner">
             <span class="footer-brand">V3RSUS</span>

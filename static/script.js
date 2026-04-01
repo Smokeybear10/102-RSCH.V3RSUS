@@ -4,15 +4,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const ac1 = document.getElementById("autocomplete1");
     const ac2 = document.getElementById("autocomplete2");
 
+
     let allFighters = [];
 
-    // Fetch fighters + update hero stat
     fetch("/api/fighters")
         .then(res => res.json())
-        .then(data => {
-            allFighters = data.fighters || [];
-            const countEl = document.getElementById("fighter-count");
-            if (countEl) countEl.textContent = allFighters.length.toLocaleString();
+        .then(data => { allFighters = data.fighters || []; })
+        .catch(err => console.error(err));
+
+    fetch("/api/model-info")
+        .then(res => res.json())
+        .then(info => {
+            const el = (id, val) => {
+                const e = document.getElementById(id);
+                if (e) e.textContent = val;
+            };
+            el("fighter-count", info.fighterCount.toLocaleString());
+            el("fight-count", info.fightCount.toLocaleString());
+            el("feature-count", info.featureCount);
         })
         .catch(err => console.error(err));
 
@@ -21,11 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
         inputEl.addEventListener("input", function () {
             const val = this.value;
             listEl.innerHTML = "";
-            if (!val) {
-                listEl.classList.add("hidden");
-                return;
-            }
-            const matches = allFighters.filter(f => f.toLowerCase().includes(val.toLowerCase())).slice(0, 10);
+            if (!val) { listEl.classList.add("hidden"); return; }
+            const matches = allFighters
+                .filter(f => f.toLowerCase().includes(val.toLowerCase()))
+                .slice(0, 10);
             if (matches.length > 0) {
                 listEl.classList.remove("hidden");
                 matches.forEach(match => {
@@ -43,11 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 listEl.classList.add("hidden");
             }
         });
-
-        document.addEventListener("click", function (e) {
-            if (e.target !== inputEl && e.target !== listEl) {
-                listEl.classList.add("hidden");
-            }
+        document.addEventListener("click", e => {
+            if (e.target !== inputEl && e.target !== listEl) listEl.classList.add("hidden");
         });
     }
 
@@ -55,53 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAutocomplete(f2Input, ac2);
 
     const resultSec = document.getElementById("result-section");
-    const navHome = document.querySelector('.nav-link[data-section="home"]');
-    const navPredict = document.getElementById("nav-predict");
 
-    function updatePredictNavLabel() {
-        if (!navPredict || !resultSec) return;
-        navPredict.textContent = resultSec.classList.contains("hidden") ? "Predict" : "Results";
-    }
-
-    function updateNavActive() {
-        const predict = document.getElementById("predict");
-        if (!navHome || !navPredict || !predict) return;
-        const top = predict.getBoundingClientRect().top;
-        const marker = 120;
-        // Hero is ~full viewport tall, so "past hero" must use the predict block, not hero.bottom.
-        if (top <= marker) {
-            navHome.classList.remove("active");
-            navPredict.classList.add("active");
-        } else {
-            navHome.classList.add("active");
-            navPredict.classList.remove("active");
-        }
-    }
-
-    if (navPredict && resultSec) {
-        navPredict.addEventListener("click", (e) => {
-            if (!resultSec.classList.contains("hidden")) {
-                e.preventDefault();
-                resultSec.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-        });
-    }
-
-    window.addEventListener("scroll", updateNavActive, { passive: true });
-    window.addEventListener("resize", updateNavActive, { passive: true });
-    updateNavActive();
-    updatePredictNavLabel();
-
-    // ---- Scroll reveal ----
-    const revealObserver = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add("visible");
         });
     }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
     // ---- Prediction ----
     const matchBtn = document.getElementById("predict-btn");
@@ -111,14 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
     matchBtn.addEventListener("click", () => {
         const fighter1 = f1Input.value.trim();
         const fighter2 = f2Input.value.trim();
-
-        if (!fighter1 || !fighter2) {
-            alert("Please select both fighters.");
-            return;
-        }
+        if (!fighter1 || !fighter2) { alert("Please select both fighters."); return; }
 
         resultSec.classList.add("hidden");
-        updatePredictNavLabel();
         btnText.classList.add("hidden");
         loader.classList.remove("hidden");
         matchBtn.disabled = true;
@@ -130,16 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.error) {
-                    alert("Error: " + data.error);
-                } else {
-                    renderResults(data);
-                }
+                if (data.error) { alert("Error: " + data.error); }
+                else { renderResults(data); }
             })
-            .catch(err => {
-                console.error(err);
-                alert("Network error.");
-            })
+            .catch(err => { console.error(err); alert("Network error."); })
             .finally(() => {
                 btnText.classList.remove("hidden");
                 loader.classList.add("hidden");
@@ -152,8 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return suffix ? val + suffix : String(val);
     }
 
+    // ---- Render Results ----
     function renderResults(data) {
-        const { fighter1, fighter2, winner, f1Prob, f2Prob, f1, f2 } = data;
+        const { fighter1, fighter2, winner, f1Prob, f2Prob, f1, f2, analysis } = data;
         const p1 = (f1Prob * 100).toFixed(1);
         const p2 = (f2Prob * 100).toFixed(1);
 
@@ -168,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
         f1Fill.style.width = "0%";
         f2Fill.style.width = "0%";
 
-        // Winner indicator
         document.getElementById("winner-name").textContent = winner;
         const arrowL = document.getElementById("winner-arrow");
         const arrowR = document.getElementById("winner-arrow-r");
@@ -182,33 +136,33 @@ document.addEventListener("DOMContentLoaded", () => {
         // Comparison bars
         renderComparison(fighter1, fighter2, f1, f2);
 
-        // Win method breakdown
+        // Win methods
         renderMethods(f1, f2);
 
-        // Show results then animate bars
-        resultSec.classList.remove("hidden");
+        // NEW: Analysis sections
+        if (analysis) {
+            renderKeyFactors(analysis.keyFactors, fighter1, fighter2);
+            renderCategoryEdges(analysis.categories, fighter1, fighter2);
+            renderModelBreakdown(analysis.modelBreakdown, fighter1, fighter2);
+            renderHistorical(analysis.historicalMatchups, fighter1, fighter2);
+        }
 
+        // Show results then animate
+        resultSec.classList.remove("hidden");
         setTimeout(() => {
             f1Fill.style.width = p1 + "%";
             f2Fill.style.width = p2 + "%";
         }, 80);
 
         resultSec.scrollIntoView({ behavior: "smooth", block: "start" });
-        updatePredictNavLabel();
-        requestAnimationFrame(() => {
-            updateNavActive();
-            setTimeout(updateNavActive, 400);
-        });
     }
 
+    // ---- Fighter Profile ----
     function renderProfile(prefix, name, stats) {
         document.getElementById(`profile-${prefix}-name`).textContent = name;
         document.getElementById(`profile-${prefix}-record`).textContent = stats.record;
-
-        const stanceEl = document.getElementById(`profile-${prefix}-stance`);
-        const ageEl = document.getElementById(`profile-${prefix}-age`);
-        stanceEl.textContent = stats.stance || "Unknown";
-        ageEl.textContent = stats.age ? `Age ${stats.age}` : "";
+        document.getElementById(`profile-${prefix}-stance`).textContent = stats.stance || "Unknown";
+        document.getElementById(`profile-${prefix}-age`).textContent = stats.age ? `Age ${stats.age}` : "";
 
         const grid = document.getElementById(`stats-${prefix}`);
         grid.innerHTML = "";
@@ -236,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ---- Head-to-Head Comparison ----
     function renderComparison(name1, name2, f1, f2) {
         const rows = document.getElementById("comparison-rows");
         rows.innerHTML = "";
@@ -257,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const total = val1 + val2 || 1;
             const pct1 = (val1 / total) * 100;
             const pct2 = (val2 / total) * 100;
-
             const leftLeads = invertAdvantage ? val1 < val2 : val1 > val2;
             const rightLeads = invertAdvantage ? val2 < val1 : val2 > val1;
 
@@ -278,13 +232,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ---- Win Methods ----
     function renderMethods(f1, f2) {
         const methods = [
             ["KO/TKO", f1.koWins, f2.koWins],
             ["Submission", f1.subWins, f2.subWins],
             ["Decision", f1.decWins, f2.decWins],
         ];
-
         const maxVal = Math.max(...methods.flatMap(([, a, b]) => [a || 0, b || 0]), 1);
 
         const colF1 = document.getElementById("method-f1");
@@ -297,22 +251,186 @@ document.addEventListener("DOMContentLoaded", () => {
         methods.forEach(([label, v1, v2]) => {
             const w1 = Math.max(((v1 || 0) / maxVal) * 100, 3);
             const w2 = Math.max(((v2 || 0) / maxVal) * 100, 3);
-
             labels.innerHTML += `<div class="method-row-label">${label}</div>`;
-
             colF1.innerHTML += `
                 <div class="method-bar-wrap left">
                     <div class="method-bar red-bar" style="width:${w1}%">
                         <span class="method-count">${v1 || 0}</span>
                     </div>
                 </div>`;
-
             colF2.innerHTML += `
                 <div class="method-bar-wrap right">
                     <div class="method-bar blue-bar" style="width:${w2}%">
                         <span class="method-count">${v2 || 0}</span>
                     </div>
                 </div>`;
+        });
+    }
+
+    // ---- Key Factors (NEW) ----
+    const CATEGORY_COLORS = {
+        striking: "#ef4444",
+        grappling: "#22c55e",
+        physical: "#a855f7",
+        experience: "#f59e0b",
+        other: "#6b7280",
+    };
+
+    function renderKeyFactors(factors, f1Name, f2Name) {
+        const container = document.getElementById("key-factors");
+        container.innerHTML = "";
+        if (!factors || !factors.length) return;
+
+        const maxImpact = Math.max(...factors.map(f => f.impact));
+
+        factors.forEach(factor => {
+            const isF1 = factor.advantage === f1Name;
+            const barPct = Math.max((factor.impact / maxImpact) * 100, 8);
+            const catColor = CATEGORY_COLORS[factor.category] || CATEGORY_COLORS.other;
+
+            const row = document.createElement("div");
+            row.className = "factor-row";
+            row.innerHTML = `
+                <div class="factor-top">
+                    <span class="factor-name">${factor.factor}</span>
+                    <span class="factor-cat" style="background: ${catColor}20; color: ${catColor}; border-color: ${catColor}40">${factor.category}</span>
+                </div>
+                <div class="factor-bottom">
+                    <span class="factor-val ${isF1 ? 'red-text' : ''}">${factor.f1Value}</span>
+                    <div class="factor-bar-wrap">
+                        <div class="factor-bar ${isF1 ? 'red-fill' : 'blue-fill'}" style="width:${barPct}%"></div>
+                    </div>
+                    <span class="factor-val ${!isF1 ? 'blue-text' : ''}">${factor.f2Value}</span>
+                </div>
+                <div class="factor-adv ${isF1 ? 'red-text' : 'blue-text'}">
+                    ${isF1 ? '\u25C0' : '\u25B6'} Favors ${factor.advantage}
+                </div>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    // ---- Category Edge Analysis (NEW) ----
+    function renderCategoryEdges(categories, f1Name, f2Name) {
+        const container = document.getElementById("category-edges");
+        container.innerHTML = "";
+        if (!categories) return;
+
+        document.getElementById("edge-f1-name").textContent = f1Name;
+        document.getElementById("edge-f2-name").textContent = f2Name;
+
+        const order = ["striking", "grappling", "physical", "experience"];
+
+        order.forEach(key => {
+            const cat = categories[key];
+            if (!cat) return;
+
+            const score = cat.score;
+            const f1Pct = score;
+            const f2Pct = 100 - score;
+            const catColor = CATEGORY_COLORS[key] || CATEGORY_COLORS.other;
+
+            const row = document.createElement("div");
+            row.className = "edge-row";
+            row.innerHTML = `
+                <div class="edge-label">
+                    <span class="edge-dot" style="background: ${catColor}"></span>
+                    <span class="edge-name">${cat.label}</span>
+                </div>
+                <div class="edge-bar-container">
+                    <div class="edge-bar-track">
+                        <div class="edge-fill-left" style="width:${f1Pct}%"></div>
+                        <div class="edge-fill-right" style="width:${f2Pct}%"></div>
+                    </div>
+                    <div class="edge-midline"></div>
+                </div>
+                <div class="edge-score ${score > 55 ? 'red-text' : score < 45 ? 'blue-text' : ''}">${score}</div>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    // ---- Model Breakdown (NEW) ----
+    const MODEL_DISPLAY = {
+        logistic_regression: "Logistic Regression",
+        random_forest: "Random Forest",
+        gradient_boosting: "Gradient Boosting",
+        ensemble: "Ensemble",
+    };
+
+    function renderModelBreakdown(breakdown, f1Name, f2Name) {
+        const container = document.getElementById("model-breakdown");
+        container.innerHTML = "";
+        if (!breakdown) return;
+
+        document.getElementById("models-f1-name").textContent = f1Name;
+        document.getElementById("models-f2-name").textContent = f2Name;
+
+        const order = ["logistic_regression", "random_forest", "gradient_boosting", "ensemble"];
+
+        order.forEach(key => {
+            const model = breakdown[key];
+            if (!model) return;
+
+            const f1Pct = (model.f1Prob * 100).toFixed(1);
+            const f2Pct = (model.f2Prob * 100).toFixed(1);
+            const isEnsemble = key === "ensemble";
+            const accText = model.accuracy ? `${(model.accuracy * 100).toFixed(1)}% acc` : "";
+
+            const row = document.createElement("div");
+            row.className = `model-row ${isEnsemble ? "model-ensemble" : ""}`;
+            row.innerHTML = `
+                <div class="model-info">
+                    <span class="model-name">${MODEL_DISPLAY[key] || key}</span>
+                    ${accText ? `<span class="model-acc">${accText}</span>` : ""}
+                </div>
+                <div class="model-bar-wrap">
+                    <div class="model-bar">
+                        <div class="model-fill red-fill" style="width:${f1Pct}%"></div>
+                        <div class="model-fill blue-fill" style="width:${f2Pct}%"></div>
+                    </div>
+                </div>
+                <div class="model-probs">
+                    <span class="model-prob red-text">${f1Pct}%</span>
+                    <span class="model-prob blue-text">${f2Pct}%</span>
+                </div>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    // ---- Historical Matchups (NEW) ----
+    function renderHistorical(matchups, f1Name, f2Name) {
+        const card = document.getElementById("history-card");
+        const container = document.getElementById("historical-matchups");
+        container.innerHTML = "";
+
+        if (!matchups || !matchups.length) {
+            card.classList.add("hidden");
+            return;
+        }
+
+        card.classList.remove("hidden");
+
+        matchups.forEach(m => {
+            const dateStr = m.date || "Unknown date";
+            const methodParts = [m.method];
+            if (m.round) methodParts.push(`Round ${m.round}`);
+            if (m.time) methodParts.push(m.time);
+
+            const isF1Winner = m.winner === f1Name;
+            const isF2Winner = m.winner === f2Name;
+
+            const row = document.createElement("div");
+            row.className = "history-row";
+            row.innerHTML = `
+                <div class="history-date">${dateStr}</div>
+                <div class="history-result">
+                    <span class="history-winner ${isF1Winner ? 'red-text' : isF2Winner ? 'blue-text' : ''}">${m.winner}</span>
+                    <span class="history-method">${methodParts.filter(Boolean).join(" \u00B7 ")}</span>
+                </div>
+            `;
+            container.appendChild(row);
         });
     }
 });

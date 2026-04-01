@@ -1,0 +1,867 @@
+/* ============================================
+   V3RSUS Methodology Page
+   ============================================ */
+
+.meth-page {
+    padding-top: var(--nav-height);
+}
+
+/* ---- Hero ---- */
+.meth-hero {
+    position: relative;
+    padding: 5rem 1.5rem 3rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.meth-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.meth-hero-inner {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.meth-overline {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    margin-bottom: 0.8rem;
+}
+
+.meth-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #fff 30%, #8b949e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.meth-lead {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(240, 240, 248, 0.7);
+    margin-bottom: 1rem;
+}
+
+.meth-lead strong {
+    color: var(--text-primary);
+}
+
+.meth-lead em {
+    color: rgba(240, 240, 248, 0.9);
+    font-style: italic;
+}
+
+.meth-byline {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+}
+
+/* ---- Numbers strip ---- */
+.meth-numbers {
+    padding: 0 1.5rem 2rem;
+}
+
+.meth-numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.meth-num-card {
+    text-align: center;
+    padding: 1.2rem 0.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    backdrop-filter: var(--glass-blur);
+}
+
+.meth-num-value {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.04em;
+}
+
+.meth-num-label {
+    display: block;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* ---- Section layout ---- */
+.meth-section {
+    padding: 2rem 1.5rem;
+}
+
+.meth-container {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.meth-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.meth-section-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--blue-accent);
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+}
+
+.meth-section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+}
+
+/* ---- Cards ---- */
+.meth-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: var(--glass-blur);
+}
+
+.meth-card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+}
+
+.tldr-accent {
+    background: linear-gradient(90deg, var(--red-accent), var(--blue-accent));
+}
+
+.meth-card-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+}
+
+.meth-card-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+}
+
+.meth-text {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: rgba(240, 240, 248, 0.7);
+    margin-bottom: 0.8rem;
+}
+
+.meth-text:last-child {
+    margin-bottom: 0;
+}
+
+.meth-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.meth-text em {
+    color: rgba(240, 240, 248, 0.85);
+}
+
+/* ---- Two column cards ---- */
+.meth-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.meth-mini-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    backdrop-filter: var(--glass-blur);
+}
+
+.meth-mini-card.meth-green {
+    border-color: rgba(34, 197, 94, 0.15);
+}
+
+.meth-mini-card.meth-red {
+    border-color: rgba(239, 68, 68, 0.15);
+}
+
+.meth-mini-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.8rem;
+}
+
+.meth-green .meth-mini-title {
+    color: #4ade80;
+}
+
+.meth-red .meth-mini-title {
+    color: #f87171;
+}
+
+.meth-check-list, .meth-x-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.meth-check-list li, .meth-x-list li {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: rgba(240, 240, 248, 0.65);
+    padding: 0.25rem 0 0.25rem 1.4rem;
+    position: relative;
+}
+
+.meth-check-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: #4ade80;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.meth-x-list li::before {
+    content: '\2717';
+    position: absolute;
+    left: 0;
+    color: #f87171;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+/* ---- Callout ---- */
+.meth-callout {
+    background: rgba(59, 130, 246, 0.04);
+    border: 1px solid rgba(59, 130, 246, 0.12);
+    border-left: 3px solid rgba(59, 130, 246, 0.4);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.2rem;
+}
+
+.meth-callout-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #93c5fd;
+    margin-bottom: 0.5rem;
+}
+
+.meth-callout .meth-text {
+    font-size: 0.84rem;
+}
+
+/* ---- Formula block ---- */
+.meth-formula-block {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid rgba(59, 130, 246, 0.35);
+    padding: 0.8rem 1.2rem;
+    border-radius: 0 10px 10px 0;
+    margin: 0.8rem 0;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+/* ---- Category grid ---- */
+.meth-categories {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 1.2rem;
+    backdrop-filter: var(--glass-blur);
+}
+
+.meth-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+}
+
+.meth-cat-card {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    transition: border-color 0.2s ease;
+}
+
+.meth-cat-card:hover {
+    border-color: var(--border-hover);
+}
+
+.meth-cat-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 auto 0.5rem;
+}
+
+.meth-cat-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+}
+
+.meth-cat-count {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.meth-cat-examples {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+/* ---- Model cards ---- */
+.meth-models-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.meth-model-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+    backdrop-filter: var(--glass-blur);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.meth-model-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+}
+
+.meth-model-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.meth-model-lr {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: #93c5fd;
+}
+
+.meth-model-rf {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    color: #86efac;
+}
+
+.meth-model-gb {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    color: #fcd34d;
+}
+
+.meth-model-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.meth-model-type {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.meth-model-desc {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    color: rgba(240, 240, 248, 0.6);
+    margin-bottom: 1rem;
+}
+
+.meth-model-meta {
+    display: flex;
+    justify-content: center;
+}
+
+.meth-model-badge {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(240, 240, 248, 0.5);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    padding: 0.25rem 0.7rem;
+    letter-spacing: 0.03em;
+}
+
+/* ---- Pipeline ---- */
+.meth-pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.meth-pipe-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0.8rem 0;
+    position: relative;
+}
+
+.meth-pipe-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 2.6rem;
+    bottom: -0.2rem;
+    width: 1px;
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.meth-pipe-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #93c5fd;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.meth-pipe-content {
+    flex: 1;
+    padding-top: 0.25rem;
+}
+
+.meth-pipe-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.meth-pipe-desc {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: rgba(240, 240, 248, 0.6);
+}
+
+/* ---- Explanation cards ---- */
+.meth-explain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.meth-explain-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.2rem;
+    backdrop-filter: var(--glass-blur);
+}
+
+.meth-explain-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--blue-accent);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+}
+
+.meth-explain-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.meth-explain-desc {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    color: rgba(240, 240, 248, 0.6);
+}
+
+/* ---- Accuracy bars ---- */
+.meth-accuracy-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+}
+
+.meth-acc-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 60px;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.meth-acc-label {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(240, 240, 248, 0.6);
+    text-align: right;
+}
+
+.meth-acc-bar-track {
+    height: 22px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.meth-acc-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.meth-acc-base {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.meth-acc-model {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.5));
+}
+
+.meth-acc-best {
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.5));
+}
+
+.meth-acc-vegas {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.35));
+    border: 1px dashed rgba(245, 158, 11, 0.2);
+}
+
+.meth-acc-val {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.03em;
+}
+
+/* ---- Limitations grid ---- */
+.meth-limits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.meth-limit-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    backdrop-filter: var(--glass-blur);
+}
+
+.meth-limit-icon {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+}
+
+.meth-limit-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+}
+
+.meth-limit-desc {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: rgba(240, 240, 248, 0.55);
+}
+
+/* ---- CTA ---- */
+.meth-cta-section {
+    padding: 3rem 1.5rem;
+}
+
+.meth-cta-btn {
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, var(--red-accent), var(--blue-accent));
+    padding: 0.8rem 2.2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.meth-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.25);
+}
+
+/* ---- References toggle ---- */
+.meth-refs-section {
+    padding-bottom: 3rem;
+}
+
+.meth-refs-toggle {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.meth-refs-summary {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 1rem 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    list-style: none;
+}
+
+.meth-refs-summary::-webkit-details-marker {
+    display: none;
+}
+
+.meth-refs-summary::before {
+    content: '+ ';
+    color: var(--text-dim);
+}
+
+details[open] .meth-refs-summary::before {
+    content: '- ';
+}
+
+.meth-refs-summary:hover {
+    color: var(--text-primary);
+}
+
+.meth-refs-list {
+    list-style: none;
+    padding: 0 1.4rem 1.2rem;
+    margin: 0;
+    counter-reset: ref;
+}
+
+.meth-refs-list li {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: rgba(240, 240, 248, 0.5);
+    padding: 0.3rem 0 0.3rem 1.8rem;
+    position: relative;
+    counter-increment: ref;
+}
+
+.meth-refs-list li::before {
+    content: '[' counter(ref) ']';
+    position: absolute;
+    left: 0;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.meth-refs-list li em {
+    color: rgba(240, 240, 248, 0.6);
+}
+
+/* ---- Reveal animation ---- */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .meth-numbers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .meth-two-col {
+        grid-template-columns: 1fr;
+    }
+
+    .meth-models-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .meth-cat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .meth-explain-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .meth-limits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .meth-acc-row {
+        grid-template-columns: 100px 1fr 48px;
+        gap: 0.5rem;
+    }
+
+    .meth-acc-label {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .meth-hero {
+        padding: 3.5rem 1rem 2rem;
+    }
+
+    .meth-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .meth-card {
+        padding: 1.2rem 1rem;
+    }
+
+    .meth-numbers-grid {
+        gap: 0.6rem;
+    }
+
+    .meth-num-value {
+        font-size: 1.3rem;
+    }
+}
