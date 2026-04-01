@@ -15,17 +15,26 @@
 </head>
 <body>
 
-    <a href="/" class="back-link">&larr; Back to V3RSUS</a>
+    <nav class="top-bar visible">
+        <div class="top-bar-left">
+            <span class="top-bar-brand">V3RSUS</span>
+            <span class="top-bar-byline">by Thomas Ou</span>
+        </div>
+        <div class="top-bar-links">
+            <a href="/">Home</a>
+            <a href="methodology.html">Methodology</a>
+        </div>
+    </nav>
 
     <main class="meth-page">
 
         <!-- Hero -->
         <section class="meth-hero">
             <div class="meth-hero-inner">
-                <p class="meth-overline">Behind the Predictions</p>
-                <h1 class="meth-title">How V3RSUS Works</h1>
-                <p class="meth-lead">We trained three machine learning models on <strong>6,500+ real UFC fights</strong> to predict who wins and&mdash;more importantly&mdash;explain <em>why</em>.</p>
-                <div class="meth-byline">Thomas Ou, Aakash Jha, Kevin Jiang &middot; CIS 5450: Big Data Analytics, UPenn</div>
+                <p class="meth-overline meth-anim" style="--delay: 0">Behind the Predictions</p>
+                <h1 class="meth-title meth-anim" style="--delay: 1">How V3RSUS Works</h1>
+                <p class="meth-lead meth-anim" style="--delay: 2">We trained three machine learning models on <strong>6,500+ real UFC fights</strong> to predict who wins and&mdash;more importantly&mdash;explain <em>why</em>.</p>
+                <div class="meth-byline meth-anim" style="--delay: 3">Thomas Ou, Aakash Jha, Kevin Jiang &middot; CIS 5450: Big Data Analytics, UPenn</div>
             </div>
         </section>
 
@@ -413,15 +422,8 @@
 
     </main>
 
-    <footer class="footer">
-        <div class="footer-inner">
-            <span class="footer-brand">V3RSUS</span>
-            <span class="footer-sep">&middot;</span>
-            <span class="footer-text">Built by Thomas Ou</span>
-        </div>
-    </footer>
 
-    <script>
+<script>
         const revealObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add("visible");

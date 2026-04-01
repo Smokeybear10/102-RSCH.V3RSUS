@@ -3,23 +3,15 @@
    ============================================ */
 
 .meth-page {
-    padding-top: var(--nav-height);
+    padding-top: 0;
 }
 
 /* ---- Hero ---- */
 .meth-hero {
     position: relative;
-    padding: 5rem 1.5rem 3rem;
+    padding: 6rem 1.5rem 3rem;
     text-align: center;
     overflow: hidden;
-}
-
-.meth-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.08) 0%, transparent 65%);
-    pointer-events: none;
 }
 
 .meth-hero-inner {
@@ -30,11 +22,11 @@
 
 .meth-overline {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--blue-accent);
+    color: rgba(240, 240, 248, 0.25);
     margin-bottom: 0.8rem;
 }
 
@@ -44,35 +36,34 @@
     font-size: clamp(2rem, 6vw, 3.2rem);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    background: linear-gradient(135deg, #fff 30%, #8b949e);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-primary);
     margin-bottom: 1rem;
     line-height: 1.1;
 }
 
 .meth-lead {
     font-family: 'Barlow', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     line-height: 1.7;
-    color: rgba(240, 240, 248, 0.7);
+    color: rgba(240, 240, 248, 0.4);
     margin-bottom: 1rem;
 }
 
 .meth-lead strong {
-    color: var(--text-primary);
+    color: rgba(240, 240, 248, 0.6);
 }
 
 .meth-lead em {
-    color: rgba(240, 240, 248, 0.9);
+    color: rgba(240, 240, 248, 0.5);
     font-style: italic;
 }
 
 .meth-byline {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    letter-spacing: 0.02em;
+    font-size: 0.6rem;
+    color: rgba(240, 240, 248, 0.15);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
 }
 
 /* ---- Numbers strip ---- */
@@ -91,29 +82,27 @@
 .meth-num-card {
     text-align: center;
     padding: 1.2rem 0.5rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
-    backdrop-filter: var(--glass-blur);
 }
 
 .meth-num-value {
     display: block;
     font-family: 'Oswald', sans-serif;
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--text-primary);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
 }
 
 .meth-num-label {
     display: block;
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.68rem;
-    color: var(--text-muted);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.55rem;
+    color: rgba(240, 240, 248, 0.2);
     margin-top: 0.25rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.15em;
 }
 
 /* ---- Section layout ---- */
@@ -132,37 +121,35 @@
     gap: 1rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .meth-section-num {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--blue-accent);
-    letter-spacing: 0.08em;
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: rgba(240, 240, 248, 0.2);
+    letter-spacing: 0.1em;
     flex-shrink: 0;
 }
 
 .meth-section-title {
     font-family: 'Oswald', sans-serif;
     font-size: clamp(1.2rem, 3vw, 1.6rem);
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text-primary);
 }
 
 /* ---- Cards ---- */
 .meth-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
     padding: 1.5rem 1.8rem;
     margin-bottom: 1.2rem;
     position: relative;
     overflow: hidden;
-    backdrop-filter: var(--glass-blur);
 }
 
 .meth-card-accent {
@@ -170,18 +157,18 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 1px;
 }
 
 .tldr-accent {
-    background: linear-gradient(90deg, var(--red-accent), var(--blue-accent));
+    background: rgba(240, 240, 248, 0.1);
 }
 
 .meth-card-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-primary);
     margin-bottom: 0.8rem;
@@ -189,18 +176,18 @@
 
 .meth-card-subtitle {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: rgba(240, 240, 248, 0.6);
     margin-bottom: 0.6rem;
 }
 
 .meth-text {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     line-height: 1.75;
-    color: rgba(240, 240, 248, 0.7);
+    color: rgba(240, 240, 248, 0.45);
     margin-bottom: 0.8rem;
 }
 
@@ -209,12 +196,12 @@
 }
 
 .meth-text strong {
-    color: var(--text-primary);
+    color: rgba(240, 240, 248, 0.7);
     font-weight: 600;
 }
 
 .meth-text em {
-    color: rgba(240, 240, 248, 0.85);
+    color: rgba(240, 240, 248, 0.55);
 }
 
 /* ---- Two column cards ---- */
@@ -226,36 +213,34 @@
 }
 
 .meth-mini-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
     padding: 1.2rem 1.4rem;
-    backdrop-filter: var(--glass-blur);
 }
 
 .meth-mini-card.meth-green {
-    border-color: rgba(34, 197, 94, 0.15);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .meth-mini-card.meth-red {
-    border-color: rgba(239, 68, 68, 0.15);
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 .meth-mini-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.65rem;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.15em;
     margin-bottom: 0.8rem;
 }
 
 .meth-green .meth-mini-title {
-    color: #4ade80;
+    color: rgba(240, 240, 248, 0.5);
 }
 
 .meth-red .meth-mini-title {
-    color: #f87171;
+    color: rgba(240, 240, 248, 0.3);
 }
 
 .meth-check-list, .meth-x-list {
@@ -268,7 +253,7 @@
     font-family: 'Barlow', sans-serif;
     font-size: 0.8rem;
     line-height: 1.5;
-    color: rgba(240, 240, 248, 0.65);
+    color: rgba(240, 240, 248, 0.4);
     padding: 0.25rem 0 0.25rem 1.4rem;
     position: relative;
 }
@@ -277,8 +262,8 @@
     content: '\2713';
     position: absolute;
     left: 0;
-    color: #4ade80;
-    font-weight: 700;
+    color: rgba(240, 240, 248, 0.3);
+    font-weight: 600;
     font-size: 0.75rem;
 }
 
@@ -286,16 +271,15 @@
     content: '\2717';
     position: absolute;
     left: 0;
-    color: #f87171;
-    font-weight: 700;
+    color: rgba(240, 240, 248, 0.15);
+    font-weight: 600;
     font-size: 0.75rem;
 }
 
 /* ---- Callout ---- */
 .meth-callout {
-    background: rgba(59, 130, 246, 0.04);
-    border: 1px solid rgba(59, 130, 246, 0.12);
-    border-left: 3px solid rgba(59, 130, 246, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-left: 2px solid rgba(240, 240, 248, 0.15);
     border-radius: 0 var(--radius) var(--radius) 0;
     padding: 1.2rem 1.4rem;
     margin-bottom: 1.2rem;
@@ -303,11 +287,11 @@
 
 .meth-callout-label {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 700;
+    font-size: 0.55rem;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #93c5fd;
+    letter-spacing: 0.2em;
+    color: rgba(240, 240, 248, 0.3);
     margin-bottom: 0.5rem;
 }
 
@@ -318,12 +302,11 @@
 /* ---- Formula block ---- */
 .meth-formula-block {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-subtle);
-    border-left: 3px solid rgba(59, 130, 246, 0.35);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(240, 240, 248, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-left: 2px solid rgba(240, 240, 248, 0.15);
     padding: 0.8rem 1.2rem;
     border-radius: 0 10px 10px 0;
     margin: 0.8rem 0;
@@ -333,12 +316,10 @@
 
 /* ---- Category grid ---- */
 .meth-categories {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
     padding: 1.5rem 1.8rem;
     margin-bottom: 1.2rem;
-    backdrop-filter: var(--glass-blur);
 }
 
 .meth-cat-grid {
@@ -350,43 +331,44 @@
 .meth-cat-card {
     text-align: center;
     padding: 1rem 0.5rem;
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: 12px;
     transition: border-color 0.2s ease;
 }
 
 .meth-cat-card:hover {
-    border-color: var(--border-hover);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .meth-cat-dot {
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     margin: 0 auto 0.5rem;
+    opacity: 0.3;
 }
 
 .meth-cat-name {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-primary);
+    letter-spacing: 0.1em;
+    color: rgba(240, 240, 248, 0.6);
     margin-bottom: 0.15rem;
 }
 
 .meth-cat-count {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.72rem;
-    color: var(--text-muted);
+    font-size: 0.7rem;
+    color: rgba(240, 240, 248, 0.25);
     margin-bottom: 0.4rem;
 }
 
 .meth-cat-examples {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.7rem;
-    color: var(--text-dim);
+    font-size: 0.65rem;
+    color: rgba(240, 240, 248, 0.15);
     line-height: 1.4;
 }
 
@@ -399,75 +381,65 @@
 }
 
 .meth-model-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
     padding: 1.5rem 1.2rem;
     text-align: center;
-    backdrop-filter: var(--glass-blur);
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease;
 }
 
 .meth-model-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .meth-model-icon {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1rem;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(240, 240, 248, 0.3);
 }
 
-.meth-model-lr {
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.25);
-    color: #93c5fd;
-}
-
-.meth-model-rf {
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.25);
-    color: #86efac;
-}
-
+.meth-model-lr,
+.meth-model-rf,
 .meth-model-gb {
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.25);
-    color: #fcd34d;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(240, 240, 248, 0.3);
 }
 
 .meth-model-name {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
     color: var(--text-primary);
     margin-bottom: 0.2rem;
 }
 
 .meth-model-type {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.72rem;
-    color: var(--text-muted);
+    font-size: 0.65rem;
+    color: rgba(240, 240, 248, 0.2);
     margin-bottom: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
 }
 
 .meth-model-desc {
     font-family: 'Barlow', sans-serif;
     font-size: 0.8rem;
     line-height: 1.65;
-    color: rgba(240, 240, 248, 0.6);
+    color: rgba(240, 240, 248, 0.4);
     margin-bottom: 1rem;
 }
 
@@ -478,14 +450,13 @@
 
 .meth-model-badge {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: rgba(240, 240, 248, 0.5);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border-subtle);
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: rgba(240, 240, 248, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 20px;
     padding: 0.25rem 0.7rem;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
 }
 
 /* ---- Pipeline ---- */
@@ -510,22 +481,21 @@
     top: 2.6rem;
     bottom: -0.2rem;
     width: 1px;
-    background: rgba(59, 130, 246, 0.15);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .meth-pipe-num {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: rgba(59, 130, 246, 0.08);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #93c5fd;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: rgba(240, 240, 248, 0.3);
     flex-shrink: 0;
     position: relative;
     z-index: 1;
@@ -538,10 +508,10 @@
 
 .meth-pipe-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
+    font-size: 0.75rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     color: var(--text-primary);
     margin-bottom: 0.2rem;
 }
@@ -550,7 +520,7 @@
     font-family: 'Barlow', sans-serif;
     font-size: 0.84rem;
     line-height: 1.6;
-    color: rgba(240, 240, 248, 0.6);
+    color: rgba(240, 240, 248, 0.4);
 }
 
 /* ---- Explanation cards ---- */
@@ -561,23 +531,20 @@
 }
 
 .meth-explain-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
     padding: 1.4rem 1.2rem;
-    backdrop-filter: var(--glass-blur);
 }
 
 .meth-explain-num {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--blue-accent);
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: rgba(240, 240, 248, 0.25);
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: rgba(59, 130, 246, 0.08);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -586,9 +553,9 @@
 
 .meth-explain-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
@@ -597,7 +564,7 @@
     font-family: 'Barlow', sans-serif;
     font-size: 0.8rem;
     line-height: 1.65;
-    color: rgba(240, 240, 248, 0.6);
+    color: rgba(240, 240, 248, 0.4);
 }
 
 /* ---- Accuracy bars ---- */
@@ -617,48 +584,47 @@
 
 .meth-acc-label {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.78rem;
-    color: rgba(240, 240, 248, 0.6);
+    font-size: 0.75rem;
+    color: rgba(240, 240, 248, 0.35);
     text-align: right;
 }
 
 .meth-acc-bar-track {
-    height: 22px;
+    height: 3px;
     background: rgba(255, 255, 255, 0.03);
-    border-radius: 6px;
+    border-radius: 3px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .meth-acc-bar-fill {
     height: 100%;
-    border-radius: 6px;
+    border-radius: 3px;
     transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .meth-acc-base {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(240, 240, 248, 0.1);
 }
 
 .meth-acc-model {
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.5));
+    background: rgba(240, 240, 248, 0.3);
 }
 
 .meth-acc-best {
-    background: linear-gradient(90deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.5));
+    background: rgba(240, 240, 248, 0.5);
 }
 
 .meth-acc-vegas {
-    background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.35));
-    border: 1px dashed rgba(245, 158, 11, 0.2);
+    background: rgba(240, 240, 248, 0.15);
+    border: none;
 }
 
 .meth-acc-val {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: 0.03em;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: rgba(240, 240, 248, 0.5);
+    letter-spacing: 0.05em;
 }
 
 /* ---- Limitations grid ---- */
@@ -669,27 +635,25 @@
 }
 
 .meth-limit-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
     padding: 1.4rem;
-    backdrop-filter: var(--glass-blur);
 }
 
 .meth-limit-icon {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--text-dim);
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(240, 240, 248, 0.15);
     margin-bottom: 0.6rem;
 }
 
 .meth-limit-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--text-primary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: rgba(240, 240, 248, 0.7);
     margin-bottom: 0.4rem;
 }
 
@@ -697,7 +661,7 @@
     font-family: 'Barlow', sans-serif;
     font-size: 0.8rem;
     line-height: 1.6;
-    color: rgba(240, 240, 248, 0.55);
+    color: rgba(240, 240, 248, 0.35);
 }
 
 /* ---- CTA ---- */
@@ -708,21 +672,22 @@
 .meth-cta-btn {
     display: inline-block;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #fff;
-    background: linear-gradient(135deg, var(--red-accent), var(--blue-accent));
-    padding: 0.8rem 2.2rem;
-    border-radius: 12px;
+    color: rgba(240, 240, 248, 0.6);
+    background: transparent;
+    border: 1px solid rgba(240, 240, 248, 0.25);
+    padding: 0.75rem 2.5rem;
+    border-radius: 100px;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .meth-cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.25);
+    color: var(--text-primary);
+    border-color: rgba(240, 240, 248, 0.6);
 }
 
 /* ---- References toggle ---- */
@@ -731,18 +696,18 @@
 }
 
 .meth-refs-toggle {
-    border: 1px solid var(--border-subtle);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius);
     overflow: hidden;
 }
 
 .meth-refs-summary {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: rgba(240, 240, 248, 0.3);
     padding: 1rem 1.4rem;
     cursor: pointer;
     transition: color 0.2s ease;
@@ -755,7 +720,7 @@
 
 .meth-refs-summary::before {
     content: '+ ';
-    color: var(--text-dim);
+    color: rgba(240, 240, 248, 0.15);
 }
 
 details[open] .meth-refs-summary::before {
@@ -763,7 +728,7 @@ details[open] .meth-refs-summary::before {
 }
 
 .meth-refs-summary:hover {
-    color: var(--text-primary);
+    color: rgba(240, 240, 248, 0.6);
 }
 
 .meth-refs-list {
@@ -777,7 +742,7 @@ details[open] .meth-refs-summary::before {
     font-family: 'Barlow', sans-serif;
     font-size: 0.78rem;
     line-height: 1.6;
-    color: rgba(240, 240, 248, 0.5);
+    color: rgba(240, 240, 248, 0.35);
     padding: 0.3rem 0 0.3rem 1.8rem;
     position: relative;
     counter-increment: ref;
@@ -787,20 +752,31 @@ details[open] .meth-refs-summary::before {
     content: '[' counter(ref) ']';
     position: absolute;
     left: 0;
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: var(--text-dim);
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: rgba(240, 240, 248, 0.15);
 }
 
 .meth-refs-list li em {
-    color: rgba(240, 240, 248, 0.6);
+    color: rgba(240, 240, 248, 0.4);
+}
+
+/* ---- Hero entrance animation ---- */
+@keyframes methFadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.meth-anim {
+    animation: methFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--delay, 0) * 0.12s + 0.1s);
 }
 
 /* ---- Reveal animation ---- */
 .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.visible {
@@ -846,7 +822,7 @@ details[open] .meth-refs-summary::before {
 
 @media (max-width: 480px) {
     .meth-hero {
-        padding: 3.5rem 1rem 2rem;
+        padding: 5rem 1rem 2rem;
     }
 
     .meth-section {

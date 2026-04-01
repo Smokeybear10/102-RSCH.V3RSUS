@@ -16,10 +16,23 @@
 
     <main class="page">
 
+        <nav class="top-bar" id="top-bar">
+            <div class="top-bar-left">
+                <span class="top-bar-brand">V3RSUS</span>
+                <span class="top-bar-byline">by Thomas Ou</span>
+            </div>
+            <div class="top-bar-links">
+                <a href="#hero">Home</a>
+                <a href="#predict">Predict</a>
+                <a href="methodology.html">Methodology</a>
+            </div>
+        </nav>
+
         <section class="hero" id="hero">
             <h1 class="monogram">V3</h1>
             <div class="wordmark">V3RSUS</div>
             <div class="tagline">MMA Predictive Analytics</div>
+            <div class="hero-byline">by Thomas Ou</div>
             <div class="hero-stats-inline">
                 <span id="fighter-count">&mdash;</span> fighters &middot;
                 <span id="fight-count">&mdash;</span> fights &middot;
@@ -33,39 +46,31 @@
 
         <section class="predict-page" id="predict">
             <div class="predict-inner">
-                <div class="predict-header">
-                    <div class="predict-overline">Select Your Fighters</div>
-                    <h2 class="predict-title">Predict a Fight</h2>
-                    <p class="predict-desc">Choose two fighters and let the ensemble model analyze the matchup.</p>
+                <div class="matchup-container reveal">
+                    <div class="fighter-panel">
+                        <label for="fighter1">Fighter 1</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="fighter1" placeholder="Search fighter..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="autocomplete1">
+                            <ul class="autocomplete-list" id="autocomplete1" role="listbox" aria-label="Fighter 1 suggestions"></ul>
+                        </div>
+                    </div>
+
+                    <div class="vs-badge"><span>VS</span></div>
+
+                    <div class="fighter-panel">
+                        <label for="fighter2">Fighter 2</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="fighter2" placeholder="Search fighter..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="autocomplete2">
+                            <ul class="autocomplete-list" id="autocomplete2" role="listbox" aria-label="Fighter 2 suggestions"></ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="card glass-panel predictive-engine">
-                    <div class="matchup-container">
-                        <div class="fighter-panel red-corner">
-                            <label for="fighter1">Fighter 1 <span class="corner-tag red">Red Corner</span></label>
-                            <div class="input-wrapper">
-                                <input type="text" id="fighter1" placeholder="Search Fighter..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="autocomplete1">
-                                <ul class="autocomplete-list" id="autocomplete1" role="listbox" aria-label="Fighter 1 suggestions"></ul>
-                            </div>
-                        </div>
-
-                        <div class="vs-badge"><span>VS</span></div>
-
-                        <div class="fighter-panel blue-corner">
-                            <label for="fighter2">Fighter 2 <span class="corner-tag blue">Blue Corner</span></label>
-                            <div class="input-wrapper">
-                                <input type="text" id="fighter2" placeholder="Search Fighter..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="autocomplete2">
-                                <ul class="autocomplete-list" id="autocomplete2" role="listbox" aria-label="Fighter 2 suggestions"></ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="action-bar">
-                        <button id="predict-btn" class="primary-btn">
-                            <span class="btn-text">Generate Prediction</span>
-                            <div class="loader hidden"></div>
-                        </button>
-                    </div>
+                <div class="action-bar reveal reveal-delay-1">
+                    <button id="predict-btn" class="primary-btn">
+                        <span class="btn-text">Predict</span>
+                        <div class="loader hidden"></div>
+                    </button>
                 </div>
             </div>
         </section>
@@ -170,21 +175,11 @@
                 <div class="section-label">Past Matchups</div>
                 <div id="historical-matchups" class="history-list"></div>
             </div>
-
-            <p class="analysis-text">Prediction generated via ensemble of Logistic Regression, Random Forest, and Gradient Boosting trained on career differential statistics across striking, grappling, physical attributes, and experience.</p>
         </section>
 
 
     </main>
 
-    <footer class="footer">
-        <div class="footer-inner">
-            <span class="footer-brand">V3RSUS</span>
-            <span class="footer-sep">&middot;</span>
-            <span class="footer-text">Built by Thomas Ou</span>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

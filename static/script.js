@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // ---- Hero fade + top bar reveal on scroll ----
+    const hero = document.getElementById("hero");
+    const topBar = document.getElementById("top-bar");
+
+    if (hero && topBar) {
+        window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+            const heroH = hero.offsetHeight;
+            const progress = Math.min(scrollY / (heroH * 0.6), 1);
+
+            hero.style.opacity = 1 - progress;
+            topBar.classList.toggle("visible", progress > 0.15);
+        }, { passive: true });
+    }
+
     const f1Input = document.getElementById("fighter1");
     const f2Input = document.getElementById("fighter2");
     const ac1 = document.getElementById("autocomplete1");
