@@ -27,32 +27,77 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---- Autocomplete ----
     function setupAutocomplete(inputEl, listEl) {
+        let activeIdx = -1;
+
+        function updateActive() {
+            const items = listEl.querySelectorAll("li");
+            items.forEach((li, i) => {
+                li.classList.toggle("active", i === activeIdx);
+                li.setAttribute("aria-selected", i === activeIdx);
+            });
+        }
+
+        function selectItem(match) {
+            inputEl.value = match;
+            listEl.innerHTML = "";
+            listEl.classList.add("hidden");
+            inputEl.setAttribute("aria-expanded", "false");
+            activeIdx = -1;
+        }
+
         inputEl.addEventListener("input", function () {
             const val = this.value;
             listEl.innerHTML = "";
-            if (!val) { listEl.classList.add("hidden"); return; }
+            activeIdx = -1;
+            if (!val) { listEl.classList.add("hidden"); inputEl.setAttribute("aria-expanded", "false"); return; }
             const matches = allFighters
                 .filter(f => f.toLowerCase().includes(val.toLowerCase()))
                 .slice(0, 10);
             if (matches.length > 0) {
                 listEl.classList.remove("hidden");
+                inputEl.setAttribute("aria-expanded", "true");
                 matches.forEach(match => {
                     const li = document.createElement("li");
+                    li.setAttribute("role", "option");
+                    li.setAttribute("aria-selected", "false");
                     const regex = new RegExp(`(${val.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
                     li.innerHTML = match.replace(regex, "<strong>$1</strong>");
-                    li.addEventListener("click", () => {
-                        inputEl.value = match;
-                        listEl.innerHTML = "";
-                        listEl.classList.add("hidden");
-                    });
+                    li.addEventListener("click", () => selectItem(match));
                     listEl.appendChild(li);
                 });
             } else {
                 listEl.classList.add("hidden");
+                inputEl.setAttribute("aria-expanded", "false");
             }
         });
+
+        inputEl.addEventListener("keydown", e => {
+            const items = listEl.querySelectorAll("li");
+            if (!items.length) return;
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                activeIdx = Math.min(activeIdx + 1, items.length - 1);
+                updateActive();
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                activeIdx = Math.max(activeIdx - 1, 0);
+                updateActive();
+            } else if (e.key === "Enter" && activeIdx >= 0) {
+                e.preventDefault();
+                selectItem(items[activeIdx].textContent);
+            } else if (e.key === "Escape") {
+                listEl.classList.add("hidden");
+                inputEl.setAttribute("aria-expanded", "false");
+                activeIdx = -1;
+            }
+        });
+
         document.addEventListener("click", e => {
-            if (e.target !== inputEl && e.target !== listEl) listEl.classList.add("hidden");
+            if (e.target !== inputEl && !listEl.contains(e.target)) {
+                listEl.classList.add("hidden");
+                inputEl.setAttribute("aria-expanded", "false");
+                activeIdx = -1;
+            }
         });
     }
 
