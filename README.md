@@ -1,88 +1,89 @@
-# Predictive Analysis of Fight Outcomes in Mixed Martial Arts (MMA)
-Comparing various machine learning models' performance in predicting combat sports results. 
+# V3RSUS | MMA Predictive Analytics
 
-## Overview:
-This project attempts to predict the outcomes of MMA fights based on a diverse set of attributes sourced from historical fight data, consisting of fighter statistics, historical performance, physical attributes, and fighting styles to train multiple ML models. The goal is to see if an accurate prediction of a novel fight can be determined from a vast set of fighter attributes. 
+Ensemble machine learning engine that predicts UFC fight outcomes using career stat differentials across 6,500+ historical bouts.
+
+## Quick Start
+
+```bash
+pip install -r requirements.txt
+python backend/app.py
+# open http://localhost:5000
+```
+
+## What It Does
+
+Pick two fighters. V3RSUS pulls their career-wide stats, computes the gap between them on 35 dimensions, and runs three ML models (Logistic Regression, Random Forest, Gradient Boosting) to predict the winner. Each prediction includes:
+
+- Win probability with model consensus breakdown
+- Top factors driving the prediction, ranked by impact
+- Edge analysis across striking, grappling, physical, and experience categories
+- Full fighter stat profiles and head-to-head comparison
+- Historical matchup results if the fighters have fought before
+
+## How It Works
+
+1. Look up each fighter's most recent career-wide stats from the dataset
+2. Compute differential features (Fighter 1 stat - Fighter 2 stat) across 35 dimensions
+3. Standardize against training data distribution
+4. Three models independently produce win probabilities; their average is the final prediction
+5. Explanation engine decomposes the logistic regression output to surface the top contributing factors
+
+Models are trained on 6,528 UFC fights with 5-fold cross-validation. Ensemble accuracy is ~60%, competitive with academic ML studies on MMA (58-68% range). Vegas sits at ~65-70% with access to camp intel, injuries, and insider info we don't have.
+
+## Tech Stack
+
+| Layer | Tools |
+|-------|-------|
+| Frontend | Vanilla HTML/CSS/JS, Oswald + Barlow fonts |
+| Backend | Python, Flask, Flask-CORS |
+| ML | scikit-learn (Logistic Regression, Random Forest, Gradient Boosting) |
+| Data | pandas, numpy, 6,500+ UFC fights from ufcstats.com |
+| Deploy | Vercel (serverless Python) |
+
+## Project Structure
+
+```
+V3RSUS/
+├── api/                  # Vercel serverless entrypoint
+│   └── index.py
+├── backend/              # Flask app + ML engine
+│   ├── app.py            # API routes, fighter profile builder
+│   └── model_engine.py   # Training, prediction, explanation logic
+├── public/               # Static frontend
+│   ├── index.html        # Main app (hero + prediction UI)
+│   ├── about.html        # About page
+│   ├── methodology.html  # Technical methodology deep dive
+│   ├── style.css         # Global styles
+│   ├── methodology.css   # Methodology page styles
+│   ├── script.js         # Client-side logic (autocomplete, rendering)
+│   └── icon.svg          # Favicon
+├── data/                 # Training datasets
+│   └── ufc-master.csv    # Primary dataset
+├── scripts/              # Original ML training/exploration scripts
+├── notebooks/            # Jupyter notebooks from research phase
+├── docs/                 # Project documentation and presentations
+├── requirements.txt
+└── vercel.json
+```
+
+## API
+
+All endpoints are served by the Flask backend:
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/fighters` | List of all fighters in the dataset |
+| GET | `/api/model-info` | Fighter count, fight count, feature count |
+| POST | `/api/predict` | Predict a matchup (body: `{ fighter1, fighter2 }`) |
+
+## Contributors
+
+Built for CIS 5450: Big Data Analytics at UPenn.
+
+- Thomas Ou
+- Aakash Jha
+- Kevin Jiang
 
 ---
 
-## Implementation 1: Assigning Attribute Weights
-
-Data set taken from (https://www.kaggle.com/datasets/danmcinerney/mma-differentials-and-elo {masterMLpublic.csv}) contains comprehensive historical fight data scraped from the official ufcstats.com. For each fight (row), the result & attributes (columns) such as 'age', 'reach', 'height', 'significant strikes landed', 'knockdowns', 'submission attempts' are recorded for both fighters. 
-
-Differential calculations are performed on these attributes between the fighter and their opponent, which are then suitable to be fed through various Machine Learning algorithms (Random Forest, Gradient Boosting Classifier, Support Vector Machine, K-Neighbors Classifier) to assign weights to the above attributes WRT predicting the outcome of a fight ('result' column). Feature Importances and discrepencies between the ML models are described in "Attribute Weights for Predicting Fight Outcome by Machine Learning Model.pdf"
-
-• 'age_differential'<br>
-• 'height_differential'<br>
-• 'days_since_last_comp_differential'<br>
-• 'reach_differential'<br>
-• 'avg_head_strikes_absorbed_differential'<br>
-• 'total_comp_time_differential'<br>
-• 'avg_takedowns_def_differential'<br>
-• 'avg_distance_strikes_def_differential'<br>
-• 'avg_sig_strikes_absorbed_differential'<br>
-• 'avg_control_differential'<br>
-• 'avg_total_strikes_absorbed_differential'<br>
-• 'avg_takedowns_attempts_per_min_differential'<br>
-• 'win_loss_ratio_differential'<br>
-• 'avg_distance_strikes_absorbed_differential'<br>
-• 'avg_body_strikes_def_differential'<br>
-• 'avg_stamina_differential'<br>
-• 'avg_ground_strikes_def_differential'<br>
-• 'total_strikes_def_differential'<br>
-• 'avg_ground_strikes_attempts_per_min_differential'<br>
-• 'avg_clinch_strikes_def_differential'<br>
-• 'avg_clinch_strikes_attempts_per_min_differential'<br>
-• 'avg_head_strikes_attempts_differential'<br>
-• 'avg_head_strikes_landed_per_min_differential'<br>
-• 'avg_total_strikes_def_differential'<br>
-• 'avg_leg_strikes_def_differential'<br>
-• 'distance_strikes_def_differential'<br>
-• 'avg_ground_strikes_landed_per_min_differential'<br>
-• 'avg_clinch_strikes_landed_per_min_differential'<br>
-• 'head_strikes_def_differential'<br>
-• 'avg_sig_strikes_def_differential'<br>
-• 'sig_strikes_def_differential'<br>
-• 'avg_leg_strikes_attempts_per_min_differential'<br>
-• 'avg_head_strikes_def_differential'<br>
-• 'control_differential'<br>
-• 'avg_total_comp_time_differential'<br>
-• 'avg_total_distance_strikes_absorbed_differential'<br>
-• 'avg_ground_strikes_absorbed_differential'<br>
-• 'avg_body_strikes_attempts_per_min_differential'<br>
-• 'head_strikes_landed_per_min_differential'<br>
-• 'clinch_strikes_attempts_per_min_differential'<br>
-• 'avg_distance_strikes_attempts_per_min_differential'<br>
-• 'avg_clinch_strikes_absorbed_differential'<br>
-• 'num_fights_differential'<br>
-• 'avg_head_strikes_attempts_per_min_differential'<br>
-• 'avg_body_strikes_landed_per_min_differential'<br>
-• 'avg_total_body_strikes_absorbed_differential'<br>
-• 'avg_leg_strikes_landed_per_min_differential'<br>
-• 'body_strikes_def_differential'<br>
-• 'avg_takedowns_landed_per_min_differential'<br>
-• 'avg_body_strikes_absorbed_differential'<br>
-• 'avg_total_clinch_strikes_absorbed_differential'<br>
-• 'avg_total_strikes_attempts_per_min_differential'<br>
-• 'avg_leg_strikes_absorbed_differential'<br>
-• 'avg_num_fights_differential'<br>
-• 'body_strikes_landed_per_min_differential'<br>
-• 'avg_distance_strikes_landed_per_min_differential'<br>
-• 'body_strikes_attempts_per_min_differential'<br>
-• 'distance_strikes_attempts_per_min_differential'<br>
-• 'avg_total_head_strikes_absorbed_differential'<br>
-• 'head_strikes_attempts_per_min_differential'<br>
-• 'head_strikes_absorbed_differential',<br>
-• 'avg_sub_attempts_per_min_differential',<br>
-• ... +100
-
----
-
-## Implementation 2: Predicting a Novel Fight Between 2 MMA Athletes
-
-This program then takes 2 fighter input names, and averages & standardizes both of their career stats for each of the relevant attributes that the ML model is learning from. The availablity & symmetry of these relevant fighter stats are crucial for how the attributes were originally chosen, permitting a flexible way to compare 2 fighters. 
-Each model is then able to take this 2-fighter input and attempts to predict and display the winner of their hypothetical fight, along with the level of certainty with its prediction.  
-
-
-![image](https://github.com/user-attachments/assets/52cefd71-831f-4503-a6da-a8ef694c9040)
-
+Built by Thomas Ou

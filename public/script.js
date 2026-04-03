@@ -4,13 +4,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const topBar = document.getElementById("top-bar");
 
     if (hero && topBar) {
-        window.addEventListener("scroll", () => {
-            const scrollY = window.scrollY;
-            const heroH = hero.offsetHeight;
-            const progress = Math.min(scrollY / (heroH * 0.6), 1);
+        let heroH = hero.offsetHeight;
+        let ticking = false;
 
-            hero.style.opacity = 1 - progress;
-            topBar.classList.toggle("visible", progress > 0.15);
+        window.addEventListener("resize", () => { heroH = hero.offsetHeight; }, { passive: true });
+
+        window.addEventListener("scroll", () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const progress = Math.min(window.scrollY / (heroH * 0.6), 1);
+                    hero.style.opacity = 1 - progress;
+                    topBar.classList.toggle("visible", progress > 0.15);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         }, { passive: true });
     }
 
@@ -161,9 +169,15 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
+    function esc(str) {
+        const d = document.createElement("div");
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
     function fmt(val, suffix) {
         if (val === null || val === undefined) return "\u2014";
-        return suffix ? val + suffix : String(val);
+        return suffix ? esc(val + suffix) : esc(String(val));
     }
 
     // ---- Render Results ----
@@ -245,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
         items.forEach(([label, value]) => {
             const div = document.createElement("div");
             div.className = "stat-item";
-            div.innerHTML = `<span class="stat-label">${label}</span><span class="stat-value">${value || "\u2014"}</span>`;
+            div.innerHTML = `<span class="stat-label">${esc(label)}</span><span class="stat-value">${esc(value || "\u2014")}</span>`;
             grid.appendChild(div);
         });
     }
@@ -280,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
             row.innerHTML = `
                 <div class="cmp-val left ${leftLeads ? 'advantage' : ''}">${fmt(v1)}</div>
                 <div class="cmp-center">
-                    <div class="cmp-label">${label}</div>
+                    <div class="cmp-label">${esc(label)}</div>
                     <div class="cmp-bar-wrap">
                         <div class="cmp-bar-left ${leftLeads ? 'lead' : ''}" style="width:${pct1}%"></div>
                         <div class="cmp-bar-right ${rightLeads ? 'lead' : ''}" style="width:${pct2}%"></div>
@@ -311,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
         methods.forEach(([label, v1, v2]) => {
             const w1 = Math.max(((v1 || 0) / maxVal) * 100, 3);
             const w2 = Math.max(((v2 || 0) / maxVal) * 100, 3);
-            labels.innerHTML += `<div class="method-row-label">${label}</div>`;
+            labels.innerHTML += `<div class="method-row-label">${esc(label)}</div>`;
             colF1.innerHTML += `
                 <div class="method-bar-wrap left">
                     <div class="method-bar red-bar" style="width:${w1}%">
@@ -352,18 +366,18 @@ document.addEventListener("DOMContentLoaded", () => {
             row.className = "factor-row";
             row.innerHTML = `
                 <div class="factor-top">
-                    <span class="factor-name">${factor.factor}</span>
-                    <span class="factor-cat" style="background: ${catColor}20; color: ${catColor}; border-color: ${catColor}40">${factor.category}</span>
+                    <span class="factor-name">${esc(factor.factor)}</span>
+                    <span class="factor-cat" style="background: ${catColor}20; color: ${catColor}; border-color: ${catColor}40">${esc(factor.category)}</span>
                 </div>
                 <div class="factor-bottom">
-                    <span class="factor-val ${isF1 ? 'red-text' : ''}">${factor.f1Value}</span>
+                    <span class="factor-val ${isF1 ? 'red-text' : ''}">${esc(String(factor.f1Value))}</span>
                     <div class="factor-bar-wrap">
                         <div class="factor-bar ${isF1 ? 'red-fill' : 'blue-fill'}" style="width:${barPct}%"></div>
                     </div>
-                    <span class="factor-val ${!isF1 ? 'blue-text' : ''}">${factor.f2Value}</span>
+                    <span class="factor-val ${!isF1 ? 'blue-text' : ''}">${esc(String(factor.f2Value))}</span>
                 </div>
                 <div class="factor-adv ${isF1 ? 'red-text' : 'blue-text'}">
-                    ${isF1 ? '\u25C0' : '\u25B6'} Favors ${factor.advantage}
+                    ${isF1 ? '\u25C0' : '\u25B6'} Favors ${esc(factor.advantage)}
                 </div>
             `;
             container.appendChild(row);
@@ -395,7 +409,7 @@ document.addEventListener("DOMContentLoaded", () => {
             row.innerHTML = `
                 <div class="edge-label">
                     <span class="edge-dot" style="background: ${catColor}"></span>
-                    <span class="edge-name">${cat.label}</span>
+                    <span class="edge-name">${esc(cat.label)}</span>
                 </div>
                 <div class="edge-bar-container">
                     <div class="edge-bar-track">
@@ -441,7 +455,7 @@ document.addEventListener("DOMContentLoaded", () => {
             row.className = `model-row ${isEnsemble ? "model-ensemble" : ""}`;
             row.innerHTML = `
                 <div class="model-info">
-                    <span class="model-name">${MODEL_DISPLAY[key] || key}</span>
+                    <span class="model-name">${esc(MODEL_DISPLAY[key] || key)}</span>
                     ${accText ? `<span class="model-acc">${accText}</span>` : ""}
                 </div>
                 <div class="model-bar-wrap">
@@ -473,7 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
         card.classList.remove("hidden");
 
         matchups.forEach(m => {
-            const dateStr = m.date || "Unknown date";
+            const dateStr = esc(m.date || "Unknown date");
             const methodParts = [m.method];
             if (m.round) methodParts.push(`Round ${m.round}`);
             if (m.time) methodParts.push(m.time);

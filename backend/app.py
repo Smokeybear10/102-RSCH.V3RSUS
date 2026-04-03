@@ -4,16 +4,16 @@ import sys
 import os
 import numpy as np
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
+_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 from model_engine import FightPredictor
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder=os.path.join(_root, 'public'))
 CORS(app)
 
 print("Initializing ML Engine...")
 predictor = FightPredictor()
-success = predictor.train('data/ufc-master.csv')
+success = predictor.train(os.path.join(_root, 'data', 'ufc-master.csv'))
 
 if not success:
     print("WARNING: Model failed to initialize. Make sure data is present.")

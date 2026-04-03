@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How It Works — V3RSUS</title>
+    <title>Methodology | V3RSUS</title>
     <meta name="description" content="How V3RSUS predicts MMA fights using ensemble machine learning on 6,500+ UFC bouts.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="sword.png">
-    <link rel="apple-touch-icon" href="sword.png">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap"></noscript>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="methodology.css">
 </head>
 <body>
 
     <nav class="top-bar visible">
-        <div class="top-bar-left">
-            <span class="top-bar-brand">V3RSUS</span>
-            <span class="top-bar-byline">by Thomas Ou</span>
-        </div>
+        <a href="/" class="top-bar-left">
+            <span class="top-bar-logo" aria-hidden="true">V3</span>
+            <div class="top-bar-identity">
+                <span class="top-bar-brand">V3RSUS</span>
+                <span class="top-bar-byline">by Thomas Ou</span>
+            </div>
+        </a>
         <div class="top-bar-links">
             <a href="/">Home</a>
             <a href="methodology.html">Methodology</a>
+            <a href="about.html">About</a>
         </div>
     </nav>
 
@@ -31,43 +36,9 @@
         <!-- Hero -->
         <section class="meth-hero">
             <div class="meth-hero-inner">
-                <p class="meth-overline meth-anim" style="--delay: 0">Behind the Predictions</p>
-                <h1 class="meth-title meth-anim" style="--delay: 1">How V3RSUS Works</h1>
-                <p class="meth-lead meth-anim" style="--delay: 2">We trained three machine learning models on <strong>6,500+ real UFC fights</strong> to predict who wins and&mdash;more importantly&mdash;explain <em>why</em>.</p>
-                <div class="meth-byline meth-anim" style="--delay: 3">Thomas Ou, Aakash Jha, Kevin Jiang &middot; CIS 5450: Big Data Analytics, UPenn</div>
-            </div>
-        </section>
-
-        <!-- Quick Numbers -->
-        <section class="meth-numbers">
-            <div class="meth-numbers-grid">
-                <div class="meth-num-card reveal">
-                    <span class="meth-num-value">6,528</span>
-                    <span class="meth-num-label">UFC Fights Analyzed</span>
-                </div>
-                <div class="meth-num-card reveal">
-                    <span class="meth-num-value">2,112</span>
-                    <span class="meth-num-label">Unique Fighters</span>
-                </div>
-                <div class="meth-num-card reveal">
-                    <span class="meth-num-value">35</span>
-                    <span class="meth-num-label">Engineered Features</span>
-                </div>
-                <div class="meth-num-card reveal">
-                    <span class="meth-num-value">3</span>
-                    <span class="meth-num-label">ML Models Combined</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- TLDR -->
-        <section class="meth-section">
-            <div class="meth-container">
-                <div class="meth-card reveal">
-                    <div class="meth-card-accent tldr-accent"></div>
-                    <h2 class="meth-card-title">The Short Version</h2>
-                    <p class="meth-text">Pick two fighters. We look up their <strong>career stats</strong>&mdash;striking accuracy, takedowns, KO wins, reach, everything. We compute the <strong>gap</strong> between them on 35 dimensions. Three different ML models vote on who wins based on patterns learned from thousands of fights with similar stat gaps. You get a probability, the top reasons driving it, and a breakdown by category.</p>
-                </div>
+                <p class="meth-overline meth-anim" style="--delay: 0">Technical Deep Dive</p>
+                <h1 class="meth-title meth-anim" style="--delay: 1">Methodology</h1>
+                <p class="meth-lead meth-anim" style="--delay: 2">How the ensemble model works&mdash;from raw data to prediction to explanation.</p>
             </div>
         </section>
 
@@ -356,48 +327,6 @@
 
                     <p class="meth-text" style="margin-top: 1rem;">Vegas has training camp reports, injury intel, and insider knowledge we don't. Academic ML studies on UFC consistently land in the 58&ndash;68% range. The reality: MMA is chaotic. One punch can end any fight regardless of stats. 60% accuracy means the stats explain more than half the story&mdash;the rest is heart, timing, and luck.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- 7. Limitations -->
-        <section class="meth-section">
-            <div class="meth-container">
-                <div class="meth-section-header reveal">
-                    <span class="meth-section-num">07</span>
-                    <h2 class="meth-section-title">What We Can't Predict</h2>
-                </div>
-
-                <div class="meth-limits-grid">
-                    <div class="meth-limit-card reveal">
-                        <div class="meth-limit-icon">~</div>
-                        <h4 class="meth-limit-title">No Trajectory</h4>
-                        <p class="meth-limit-desc">Career averages can't tell if a fighter is peaking or declining. A 35-year-old with great career stats might be past their prime.</p>
-                    </div>
-                    <div class="meth-limit-card reveal">
-                        <div class="meth-limit-icon">?</div>
-                        <h4 class="meth-limit-title">No Style Matchups</h4>
-                        <p class="meth-limit-desc">A wrestler's takedown rate doesn't account for the specific opponent's defense. Style matchups are what MMA analysts obsess over&mdash;and we can't model them.</p>
-                    </div>
-                    <div class="meth-limit-card reveal">
-                        <div class="meth-limit-icon">!</div>
-                        <h4 class="meth-limit-title">No Camp Intel</h4>
-                        <p class="meth-limit-desc">Weight cut quality, injuries, mental state, travel fatigue, altitude&mdash;all factors that matter, none in our dataset.</p>
-                    </div>
-                    <div class="meth-limit-card reveal">
-                        <div class="meth-limit-icon">&#x27F3;</div>
-                        <h4 class="meth-limit-title">Sport Evolves</h4>
-                        <p class="meth-limit-desc">MMA techniques, training, and metas change over time. Patterns from 2012 might not apply to 2024 fighters.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="meth-section meth-cta-section">
-            <div class="meth-container" style="text-align: center;">
-                <h2 class="meth-section-title reveal" style="margin-bottom: 0.8rem;">Ready to Test It?</h2>
-                <p class="meth-text reveal" style="max-width: 480px; margin: 0 auto 1.5rem;">Pick any two fighters and see how the engine breaks down the matchup.</p>
-                <a href="/#predict" class="meth-cta-btn reveal">Start Predicting</a>
             </div>
         </section>
 

@@ -3,44 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V3RSUS — MMA Predictive Analytics</title>
+    <title>V3RSUS | MMA Analytics</title>
     <meta name="description" content="AI-powered MMA fight prediction engine using ensemble machine learning on 6,500+ UFC fights.">
+    <meta property="og:title" content="V3RSUS | MMA Analytics">
+    <meta property="og:description" content="AI-powered MMA fight prediction engine using ensemble machine learning on 6,500+ UFC fights.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="V3RSUS | MMA Analytics">
+    <meta name="twitter:description" content="AI-powered MMA fight prediction engine using ensemble machine learning on 6,500+ UFC fights.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="sword.png">
-    <link rel="apple-touch-icon" href="sword.png">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap"></noscript>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon.svg">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
 
     <main class="page">
 
         <nav class="top-bar" id="top-bar">
-            <div class="top-bar-left">
-                <span class="top-bar-brand">V3RSUS</span>
-                <span class="top-bar-byline">by Thomas Ou</span>
-            </div>
+            <a href="#hero" class="top-bar-left">
+                <span class="top-bar-logo" aria-hidden="true">V3</span>
+                <div class="top-bar-identity">
+                    <span class="top-bar-brand">V3RSUS</span>
+                    <span class="top-bar-byline">by Thomas Ou</span>
+                </div>
+            </a>
             <div class="top-bar-links">
                 <a href="#hero">Home</a>
-                <a href="#predict">Predict</a>
                 <a href="methodology.html">Methodology</a>
+                <a href="about.html">About</a>
             </div>
         </nav>
 
         <section class="hero" id="hero">
-            <h1 class="monogram">V3</h1>
-            <div class="wordmark">V3RSUS</div>
-            <div class="tagline">MMA Predictive Analytics</div>
-            <div class="hero-byline">by Thomas Ou</div>
-            <div class="hero-stats-inline">
-                <span id="fighter-count">&mdash;</span> fighters &middot;
-                <span id="fight-count">&mdash;</span> fights &middot;
-                <span id="feature-count">&mdash;</span> features
+            <div class="ambient-orb" style="width:400px;height:400px;top:10%;left:15%;background:rgba(100,120,200,0.03)" aria-hidden="true"></div>
+            <div class="ambient-orb" style="width:300px;height:300px;bottom:20%;right:10%;background:rgba(140,100,180,0.025);animation-delay:-4s" aria-hidden="true"></div>
+
+            <div class="monogram-bg" aria-hidden="true">
+                <span class="monogram">V3</span>
             </div>
-            <div class="hero-ctas">
-                <a href="#predict" class="cta-btn cta-ghost">Start Predicting</a>
-                <a href="methodology.html" class="cta-btn cta-ghost cta-muted">Methodology</a>
+
+            <div class="hero-content">
+                <p class="hero-label stagger-1">MMA Predictive Analytics</p>
+                <h1 class="hero-title stagger-2">V3RSUS</h1>
+                <p class="hero-sub stagger-3">
+                    <span id="fighter-count">&mdash;</span> fighters &middot;
+                    <span id="fight-count">&mdash;</span> fights &middot;
+                    <span id="feature-count">&mdash;</span> features
+                </p>
+                <div class="hero-ctas stagger-4">
+                    <a href="#predict" class="pill-btn-filled">Start Predicting</a>
+                    <a href="methodology.html" class="pill-btn">Methodology</a>
+                </div>
             </div>
         </section>
 
@@ -180,6 +198,6 @@
 
     </main>
 
-<script src="script.js"></script>
+
 </body>
 </html>
