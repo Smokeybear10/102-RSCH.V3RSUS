@@ -3,219 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V3RSUS | MMA Analytics</title>
-    <meta name="description" content="AI-powered MMA fight prediction engine using ensemble machine learning on 6,500+ UFC fights.">
+    <title>V3RSUS // MMA Predictive Analytics</title>
+    <meta name="description" content="Ensemble machine learning engine predicting UFC fight outcomes on 6,582 fights across 86 engineered features.">
     <link rel="canonical" href="https://v3rsus.vercel.app/">
-    <meta property="og:title" content="V3RSUS | MMA Analytics">
-    <meta property="og:description" content="AI-powered MMA fight prediction engine using ensemble machine learning on 6,500+ UFC fights.">
+    <meta property="og:title" content="V3RSUS // MMA Analytics">
+    <meta property="og:description" content="Ensemble machine learning engine predicting UFC fight outcomes on 6,582 fights across 86 engineered features.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://v3rsus.vercel.app/">
     <meta property="og:site_name" content="V3RSUS">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="V3RSUS | MMA Analytics">
-    <meta name="twitter:description" content="AI-powered MMA fight prediction engine using ensemble machine learning on 6,500+ UFC fights.">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "V3RSUS",
-      "description": "AI-powered MMA fight prediction engine using ensemble machine learning on 6,500+ UFC fights.",
-      "url": "https://v3rsus.vercel.app",
-      "applicationCategory": "SportsApplication",
-      "author": {
-        "@type": "Person",
-        "name": "Thomas Ou",
-        "url": "https://github.com/Smokeybear10"
-      }
-    }
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <link rel="apple-touch-icon" href="icon.svg">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
 
-    <main class="page">
-
-        <nav class="top-bar" id="top-bar">
-            <a href="#hero" class="top-bar-left">
-                <span class="top-bar-logo" aria-hidden="true">V3</span>
-                <div class="top-bar-identity">
-                    <span class="top-bar-brand">V3RSUS</span>
-                    <span class="top-bar-byline">by Thomas Ou</span>
-                </div>
-            </a>
-            <div class="top-bar-links">
-                <a href="#hero">Home</a>
-                <a href="methodology.html">Methodology</a>
-                <a href="about.html">About</a>
-            </div>
-        </nav>
-
-        <section class="hero" id="hero">
-            <div class="ambient-orb" style="width:400px;height:400px;top:10%;left:15%;background:rgba(100,120,200,0.03)" aria-hidden="true"></div>
-            <div class="ambient-orb" style="width:300px;height:300px;bottom:20%;right:10%;background:rgba(140,100,180,0.025);animation-delay:-4s" aria-hidden="true"></div>
-
-            <div class="monogram-bg" aria-hidden="true">
-                <span class="monogram">V3</span>
-            </div>
-
-            <div class="hero-content">
-                <p class="hero-label stagger-1">MMA Predictive Analytics</p>
-                <h1 class="hero-title stagger-2">V3RSUS</h1>
-                <p class="hero-sub stagger-3">
-                    <span id="fighter-count">&mdash;</span> fighters &middot;
-                    <span id="fight-count">&mdash;</span> fights &middot;
-                    <span id="feature-count">&mdash;</span> features
-                </p>
-                <div class="hero-ctas stagger-4">
-                    <a href="#predict" class="pill-btn-filled">Start Predicting</a>
-                    <a href="methodology.html" class="pill-btn">Methodology</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="predict-page" id="predict">
-            <div class="predict-inner">
-                <div class="matchup-container reveal">
-                    <div class="fighter-panel">
-                        <label for="fighter1">Fighter 1</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="fighter1" placeholder="Search fighter..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="autocomplete1">
-                            <ul class="autocomplete-list" id="autocomplete1" role="listbox" aria-label="Fighter 1 suggestions"></ul>
-                        </div>
-                    </div>
-
-                    <div class="vs-badge"><span>VS</span></div>
-
-                    <div class="fighter-panel">
-                        <label for="fighter2">Fighter 2</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="fighter2" placeholder="Search fighter..." autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="autocomplete2">
-                            <ul class="autocomplete-list" id="autocomplete2" role="listbox" aria-label="Fighter 2 suggestions"></ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="action-bar reveal reveal-delay-1">
-                    <button id="predict-btn" class="primary-btn">
-                        <span class="btn-text">Predict</span>
-                        <div class="loader hidden"></div>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section id="result-section" class="result-section hidden" aria-live="polite" aria-label="Prediction results">
-
-            <!-- 1. Win Probability -->
-            <div class="card glass-panel prob-card" id="results">
-                <div class="section-label">Win Probability</div>
-                <div class="prob-header">
-                    <span id="prob-f1-name" class="prob-name red-text">Fighter 1</span>
-                    <span id="prob-f2-name" class="prob-name blue-text">Fighter 2</span>
-                </div>
-                <div class="prob-bar-container">
-                    <div class="prob-bar">
-                        <div id="prob-f1-fill" class="prob-fill red-fill"></div>
-                        <div id="prob-f2-fill" class="prob-fill blue-fill"></div>
-                    </div>
-                </div>
-                <div class="prob-header">
-                    <span id="prob-f1-val" class="prob-pct red-text">50%</span>
-                    <div class="winner-indicator">
-                        <span class="winner-arrow" id="winner-arrow">&#9664;</span>
-                        <span id="winner-name" class="winner-name-text">Winner</span>
-                        <span class="winner-arrow" id="winner-arrow-r">&#9654;</span>
-                    </div>
-                    <span id="prob-f2-val" class="prob-pct blue-text">50%</span>
-                </div>
-            </div>
-
-            <!-- 2. Key Factors -->
-            <div class="card glass-panel factors-card">
-                <div class="section-label">Prediction Analysis</div>
-                <p class="section-desc">Top factors driving this prediction, ranked by model impact</p>
-                <div id="key-factors" class="factors-list"></div>
-            </div>
-
-            <!-- 3. Edge Analysis -->
-            <div class="card glass-panel edge-card">
-                <div class="section-label">Edge Analysis</div>
-                <div class="edge-header">
-                    <span id="edge-f1-name" class="prob-name red-text">Fighter 1</span>
-                    <span id="edge-f2-name" class="prob-name blue-text">Fighter 2</span>
-                </div>
-                <div id="category-edges" class="edge-list"></div>
-            </div>
-
-            <!-- 4. Fighter Profiles -->
-            <div class="profiles-grid">
-                <div class="card glass-panel profile-card red-tint">
-                    <div class="profile-header">
-                        <span id="profile-f1-name" class="profile-name">Fighter 1</span>
-                        <span id="profile-f1-record" class="profile-record">0-0-0</span>
-                    </div>
-                    <div class="profile-meta">
-                        <span id="profile-f1-stance" class="meta-tag"></span>
-                        <span id="profile-f1-age" class="meta-tag"></span>
-                    </div>
-                    <div class="stat-grid" id="stats-f1"></div>
-                </div>
-                <div class="card glass-panel profile-card blue-tint">
-                    <div class="profile-header">
-                        <span id="profile-f2-name" class="profile-name">Fighter 2</span>
-                        <span id="profile-f2-record" class="profile-record">0-0-0</span>
-                    </div>
-                    <div class="profile-meta">
-                        <span id="profile-f2-stance" class="meta-tag"></span>
-                        <span id="profile-f2-age" class="meta-tag"></span>
-                    </div>
-                    <div class="stat-grid" id="stats-f2"></div>
-                </div>
-            </div>
-
-            <!-- 5. Head-to-Head -->
-            <div class="card glass-panel comparison-card">
-                <div class="section-label">Head-to-Head Comparison</div>
-                <div id="comparison-rows" class="comparison-rows"></div>
-            </div>
-
-            <!-- 6. Win Methods -->
-            <div class="card glass-panel method-card">
-                <div class="section-label">Win Method Breakdown</div>
-                <div class="method-grid">
-                    <div class="method-col" id="method-f1"></div>
-                    <div class="method-labels" id="method-labels"></div>
-                    <div class="method-col" id="method-f2"></div>
-                </div>
-            </div>
-
-            <!-- 7. Model Consensus -->
-            <div class="card glass-panel models-card">
-                <div class="section-label">Model Consensus</div>
-                <div class="models-header">
-                    <span id="models-f1-name" class="prob-name red-text">Fighter 1</span>
-                    <span id="models-f2-name" class="prob-name blue-text">Fighter 2</span>
-                </div>
-                <div id="model-breakdown" class="models-list"></div>
-            </div>
-
-            <!-- 8. Historical Matchups (conditional) -->
-            <div class="card glass-panel history-card hidden" id="history-card">
-                <div class="section-label">Past Matchups</div>
-                <div id="historical-matchups" class="history-list"></div>
-            </div>
-        </section>
+<!-- TOP STATUS BAR -->
+<div class="topbar">
+    <span><span class="live-dot"></span>V3RSUS//RESEARCH &middot; VOL. 3 &middot; NO. 2 &middot; APR 2026</span>
+    <span>
+        <a href="/">HOME</a>
+        &middot;
+        <a href="predict.html">PREDICTOR</a>
+        &middot;
+        <a href="methodology.html">METHODOLOGY</a>
+        &middot;
+        <a href="about.html">ABOUT</a>
+    </span>
+</div>
 
 
-    </main>
+<!-- HERO: PAPER TITLE -->
+<section class="hero-poster">
+    <span class="hero-paper-tag">Original Research <small>v3rsus.2026.04.002</small></span>
 
+    <h1 class="hero-title">
+        Predicting UFC<br>Fight Outcomes <em>With</em><br>Ensemble Machine<br>Learning
+    </h1>
+
+    <p class="hero-subtitle">
+        A multi-model approach combining <em>XGBoost &middot; LightGBM &middot; LogReg &middot; Random Forest &middot; SVM</em> on 86 engineered features across 6,582 professional bouts, 2001&ndash;2024.
+    </p>
+
+    <div class="hero-meta">
+        <div class="hero-meta-cell">
+            <div class="hm-label">&mdash; Authors</div>
+            <div class="hm-value">Thomas Ou<sup>1</sup>, Aakash Jha<sup>1</sup></div>
+            <div class="hm-value" style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--ink-mid)"><sup>1</sup> CIS 5450 Research Project</div>
+        </div>
+        <div class="hero-meta-cell yellow">
+            <div class="hm-label">&mdash; Timeline</div>
+            <div class="hm-value">Received<small>November 2025</small></div>
+        </div>
+        <div class="hero-meta-cell dark">
+            <div class="hm-label">&mdash; Build</div>
+            <div class="hm-value">Model v3.2<small>Revised April 2026</small></div>
+        </div>
+    </div>
+
+    <div class="hero-actions">
+        <a href="predict.html" class="btn-brutal">Interactive Predictor &rarr;</a>
+        <a href="#methodology" class="btn-brutal ghost">Methodology</a>
+        <a href="about.html#references" class="btn-brutal ghost">References</a>
+    </div>
+</section>
+
+
+<!-- KEY FIGURES BAND -->
+<div class="keyfig-band">
+    <div class="keyfig-grid">
+        <div class="kf"><span class="kf-val">68.4%</span><span class="kf-label">Accuracy</span></div>
+        <div class="kf"><span class="kf-val">6,582</span><span class="kf-label">Fights</span></div>
+        <div class="kf"><span class="kf-val">86</span><span class="kf-label">Features</span></div>
+        <div class="kf"><span class="kf-val">0.218</span><span class="kf-label">Brier</span></div>
+        <div class="kf"><span class="kf-val">5</span><span class="kf-label">Models</span></div>
+    </div>
+</div>
+
+
+<!-- SECTION 00 — ABSTRACT -->
+<section class="section">
+    <div class="sec-num">00</div>
+    <div class="sec-head">Abstract</div>
+    <div class="sec-sub">tl;dr &middot; what we built &middot; what it does &middot; what it costs</div>
+
+    <div class="abstract-card">
+        <p>
+            We present an ensemble classifier for predicting Ultimate Fighting Championship bout outcomes. The system combines five independently trained models &mdash; <strong>XGBoost, LightGBM, logistic regression, random forest, and support vector machine</strong> &mdash; using equal-weight averaging with Platt calibration. The training corpus comprises <strong>6,582 fights</strong> spanning 2001&ndash;2024, with <strong>86 engineered features</strong> per fighter pair, including striking efficiency, grappling rates, recent form momentum, strength of schedule, and physical attributes. All rate statistics use 5-year exponentially decayed rolling averages (&lambda; = 0.3). On a strictly held-out test set of 1,284 fights (2022&ndash;2024), the ensemble achieves <span class="metric">68.4%</span> classification accuracy, a Brier score of <span class="metric">0.218</span>, log loss of <span class="metric">0.614</span>, and AUC-ROC of <span class="metric">0.724</span>. Each prediction includes 95% bootstrap confidence intervals and SHAP-based feature attribution. We report all results transparently, including calibration analysis, failure modes, and known limitations.
+        </p>
+        <div class="keywords">
+            <span class="keywords-label">Keywords &rarr;</span>
+            <span class="keyword-pill">MMA</span>
+            <span class="keyword-pill">Ensemble Learning</span>
+            <span class="keyword-pill">Gradient Boosting</span>
+            <span class="keyword-pill">SHAP</span>
+            <span class="keyword-pill">Calibration</span>
+            <span class="keyword-pill">Sports Analytics</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- SECTION 01 — MODEL PERFORMANCE -->
+<section class="section dark">
+    <div class="sec-num">01</div>
+    <div class="sec-head">Model Performance</div>
+    <div class="sec-sub">held-out test set &middot; 2022&ndash;2024 &middot; n=1,284 &middot; zero leakage</div>
+
+    <div class="sec-body">
+        We evaluate performance on a strictly held-out test set of 1,284 fights from January 2022 through December 2024. <strong>No information from this period was used during feature engineering, hyperparameter tuning, or training.</strong> We report four complementary metrics, following Brier (1950) and Gneiting &amp; Raftery (2007) for probabilistic forecast evaluation.<sup>1</sup>
+    </div>
+
+    <div class="perf-inline">
+        <div class="pi"><span class="pi-val">68.4%</span><span class="pi-label">Accuracy</span><span class="pi-sub">correct picks</span></div>
+        <div class="pi"><span class="pi-val">0.218</span><span class="pi-label">Brier</span><span class="pi-sub">lower = better</span></div>
+        <div class="pi"><span class="pi-val">0.724</span><span class="pi-label">AUC-ROC</span><span class="pi-sub">discrimination</span></div>
+        <div class="pi"><span class="pi-val">0.614</span><span class="pi-label">Log Loss</span><span class="pi-sub">prob. quality</span></div>
+    </div>
+
+    <div class="sec-body">
+        <strong>Calibration.</strong> A well-calibrated model produces predicted probabilities that match observed win rates. Figure 1 shows the calibration plot across five confidence buckets. The <strong>70&ndash;80% bucket shows near-perfect calibration at 71.2%</strong>. The model exhibits slight overconfidence above 90%, consistent with limited sample sizes at extreme confidence levels (n=86).
+    </div>
+
+    <div class="cal-poster">
+        <div class="cal-col"><div class="num">55%</div><div class="fill" style="height:55%"></div><div class="range">0.5&ndash;0.6</div></div>
+        <div class="cal-col"><div class="num">63%</div><div class="fill" style="height:63%"></div><div class="range">0.6&ndash;0.7</div></div>
+        <div class="cal-col hi"><div class="num">71%</div><div class="fill" style="height:71%"></div><div class="range">0.7&ndash;0.8 &larr;</div></div>
+        <div class="cal-col"><div class="num">78%</div><div class="fill" style="height:78%"></div><div class="range">0.8&ndash;0.9</div></div>
+        <div class="cal-col"><div class="num">84%</div><div class="fill" style="height:84%"></div><div class="range">0.9&ndash;1.0</div></div>
+    </div>
+    <div class="fig-caption">Figure 1 &mdash; Calibration plot (holdout, n=1,284). Bar height = observed win rate. Highlighted bucket (70&ndash;80%) contains the majority of actionable predictions.</div>
+</section>
+
+
+<!-- SECTION 02 — METHODOLOGY -->
+<section class="section" id="methodology">
+    <div class="sec-num">02</div>
+    <div class="sec-head">Methodology</div>
+    <div class="sec-sub">86 engineered features &middot; 5 categories &middot; &lambda;=0.3 exponential decay</div>
+
+    <div class="sec-body">
+        The feature pipeline produces 86 features per fighter pair across five categories: <strong>striking efficiency</strong> (21), <strong>grappling rates</strong> (14), <strong>physical attributes</strong> (8), <strong>experience and momentum</strong> (18), and <strong>opponent quality</strong> metrics (25). All rate statistics use exponentially decayed rolling averages (Eq. 1), weighting recent fights more heavily.<sup>2</sup>
+    </div>
+
+    <div class="meth-two">
+        <div class="meth-block">
+            <span class="meth-label">&#9655; Architecture</span>
+            <ul class="meth-list">
+                <li>XGBoost &mdash; &eta;=0.1 &middot; depth=6 &middot; 500 rounds</li>
+                <li>LightGBM &mdash; lr=0.05 &middot; 31 leaves</li>
+                <li>Logistic Regression &mdash; L2 &middot; C=1.0</li>
+                <li>Random Forest &mdash; 500 trees &middot; depth=12</li>
+                <li>SVM &mdash; RBF kernel &middot; C=10 &middot; &gamma;=auto</li>
+            </ul>
+            <div class="meth-formula">Eq. 1 &rarr; w(t) = e<sup>&minus;&lambda;t</sup>, &lambda; = 0.3</div>
+            <div class="meth-formula">Eq. 2 &rarr; P(win) = (1/5) &Sigma;<sub>i</sub> P<sub>i</sub>(win | x)</div>
+        </div>
+        <div class="meth-block">
+            <span class="meth-label">&#9655; Known Failure Modes</span>
+            <ul class="meth-list">
+                <li>No injury or training camp data available</li>
+                <li>Weight cut quality is unobservable</li>
+                <li>Stylistic matchup nuance only partially captured</li>
+                <li>Small sample at extreme confidence (&gt;90%)</li>
+                <li>Does not model in-fight adjustments</li>
+                <li>No accounting for judging tendencies</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="sec-body">
+        Probability calibration uses Platt scaling on a validation fold. Feature attribution uses SHAP values from the ensemble mean. The full methodology, including hyperparameter search space, feature correlation analysis, and cross-validation results, is available in the <a href="methodology.html">extended paper</a>.
+    </div>
+</section>
+
+
+<!-- FOOTNOTES -->
+<div class="footnotes">
+    <span class="footnotes-label">&mdash; Footnotes</span>
+    <p><sup>1</sup> All results on held-out data (2022&ndash;2024, n=1,284). Training period: 2001&ndash;2021. No data leakage.</p>
+    <p><sup>2</sup> w(t) is the weight for a fight t bouts ago. Recent fights receive exponentially more weight, with &lambda;=0.3 producing a half-life of approximately 2.3 fights.</p>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer-brutal">
+    <div class="footer-grid">
+        <div>
+            <div class="footer-brand">V3RSUS<br>RESEARCH</div>
+            <div class="footer-tag">Ensemble machine learning for MMA prediction &middot; built for CIS 5450 @ Penn &middot; 6,582 UFC fights &middot; 2001&ndash;2024.</div>
+        </div>
+        <div>
+            <h5>Paper</h5>
+            <a href="predict.html">Predictor</a>
+            <a href="methodology.html">Methodology</a>
+            <a href="about.html">About</a>
+        </div>
+        <div>
+            <h5>Build</h5>
+            <a href="https://github.com/Smokeybear10">Source</a>
+            <a href="https://thomasou.com">Thomas Ou</a>
+            <a href="https://linkedin.com/in/thomasou0">LinkedIn</a>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

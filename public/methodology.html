@@ -16,29 +16,60 @@
     <meta name="twitter:description" content="How V3RSUS predicts MMA fights — data pipeline, feature engineering, model training, and explanation engine.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap"></noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"></noscript>
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="apple-touch-icon" href="icon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="methodology.css">
+    <style>
+        /* Brutalist topbar (shared with index / about / predict) */
+        .topbar {
+            background: #0a0908;
+            color: #f4efe1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1.75rem;
+            font-family: 'Space Mono', ui-monospace, monospace;
+            font-size: 0.66rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-bottom: 4px solid #0a0908;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 100;
+        }
+        .topbar strong { color: #ffd60a; font-weight: 700; }
+        .topbar a { color: #ffd60a; text-decoration: none; }
+        .topbar a:hover { color: #ff3b30; }
+        .topbar .live-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            background: #ff3b30;
+            margin-right: 0.5rem;
+            animation: topbarPulse 1.2s infinite;
+            vertical-align: 1px;
+        }
+        @keyframes topbarPulse { 50% { opacity: 0.35; background: #ffd60a; } }
+    </style>
 </head>
 <body>
 
-    <nav class="top-bar visible">
-        <a href="/" class="top-bar-left">
-            <span class="top-bar-logo" aria-hidden="true">V3</span>
-            <div class="top-bar-identity">
-                <span class="top-bar-brand">V3RSUS</span>
-                <span class="top-bar-byline">by Thomas Ou</span>
-            </div>
-        </a>
-        <div class="top-bar-links">
-            <a href="/">Home</a>
-            <a href="methodology.html">Methodology</a>
-            <a href="about.html">About</a>
-        </div>
-    </nav>
+    <!-- TOP STATUS BAR -->
+    <div class="topbar">
+        <span><span class="live-dot"></span>V3RSUS//METHODOLOGY &middot; TECHNICAL DEEP DIVE</span>
+        <span>
+            <a href="/">HOME</a>
+            &middot;
+            <a href="predict.html">PREDICTOR</a>
+            &middot;
+            <a href="methodology.html">METHODOLOGY</a>
+            &middot;
+            <a href="about.html">ABOUT</a>
+        </span>
+    </div>
 
     <main class="meth-page">
 

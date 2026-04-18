@@ -3,66 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | V3RSUS</title>
+    <title>V3RSUS // About</title>
     <meta name="description" content="Built by Thomas Ou. Fullstack engineer at UPenn building AI-powered tools.">
     <link rel="canonical" href="https://v3rsus.vercel.app/about.html">
-    <meta property="og:title" content="About | V3RSUS">
+    <meta property="og:title" content="V3RSUS // About">
     <meta property="og:description" content="Built by Thomas Ou. Fullstack engineer at UPenn building AI-powered tools.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://v3rsus.vercel.app/about.html">
     <meta property="og:site_name" content="V3RSUS">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="About | V3RSUS">
-    <meta name="twitter:description" content="Built by Thomas Ou. Fullstack engineer at UPenn building AI-powered tools.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <link rel="apple-touch-icon" href="icon.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
 
-    <nav class="top-bar visible">
-        <a href="/" class="top-bar-left">
-            <span class="top-bar-logo" aria-hidden="true">V3</span>
-            <div class="top-bar-identity">
-                <span class="top-bar-brand">V3RSUS</span>
-                <span class="top-bar-byline">by Thomas Ou</span>
-            </div>
-        </a>
-        <div class="top-bar-links">
-            <a href="/">Home</a>
-            <a href="methodology.html">Methodology</a>
-            <a href="about.html">About</a>
+<!-- TOP STATUS BAR -->
+<div class="topbar">
+    <span><span class="live-dot"></span>V3RSUS//ABOUT &middot; COLOPHON &middot; CREDITS</span>
+    <span>
+        <a href="/">HOME</a>
+        &middot;
+        <a href="predict.html">PREDICTOR</a>
+        &middot;
+        <a href="methodology.html">METHODOLOGY</a>
+        &middot;
+        <a href="about.html">ABOUT</a>
+    </span>
+</div>
+
+
+<!-- HERO -->
+<section class="hero-poster">
+    <span class="hero-paper-tag">Colophon <small>who built this</small></span>
+
+    <h1 class="hero-title">
+        Thomas Ou.<br><em>Fullstack</em><br>Engineer.
+    </h1>
+
+    <p class="hero-subtitle">
+        I&rsquo;m a fullstack engineer at UPenn studying computer science. I like building things that sit at the intersection of data, design, and real-world problems. V3RSUS started as a class project for CIS 5450 with Aakash Jha and Kevin Jiang, and turned into something I wanted to actually ship. Outside of code, I follow MMA way too closely and I&rsquo;m always looking for the next hard problem to work on.
+    </p>
+
+    <div class="hero-actions">
+        <a href="https://github.com/Smokeybear10" target="_blank" rel="noopener" class="btn-brutal">GitHub &rarr;</a>
+        <a href="https://www.linkedin.com/in/thomasou0" target="_blank" rel="noopener" class="btn-brutal ghost">LinkedIn</a>
+        <a href="https://thomasou.com" target="_blank" rel="noopener" class="btn-brutal ghost">thomasou.com</a>
+    </div>
+</section>
+
+
+<!-- SECTION 01 — TEAM -->
+<section class="section dark">
+    <div class="sec-num">01</div>
+    <div class="sec-head">The Team</div>
+    <div class="sec-sub">CIS 5450 : Big Data Analytics &middot; University of Pennsylvania</div>
+
+    <div class="hero-meta" style="margin-bottom: 0">
+        <div class="hero-meta-cell">
+            <div class="hm-label">&mdash; Author</div>
+            <div class="hm-value">Thomas Ou<small>site &middot; ml &middot; frontend &middot; data</small></div>
         </div>
-    </nav>
+        <div class="hero-meta-cell yellow">
+            <div class="hm-label">&mdash; Research Partner</div>
+            <div class="hm-value">Aakash Jha<small>feature engineering &middot; modeling</small></div>
+        </div>
+        <div class="hero-meta-cell dark">
+            <div class="hm-label">&mdash; Research Partner</div>
+            <div class="hm-value">Kevin Jiang<small>data pipeline &middot; analysis</small></div>
+        </div>
+    </div>
+</section>
 
-    <main class="page">
-        <section class="about-page">
-            <div class="about-content">
-                <h1 class="about-name">Thomas Ou</h1>
-                <p class="about-role">Fullstack Engineer</p>
-                <div class="about-divider" aria-hidden="true"></div>
-                <p class="about-bio">
-                    I'm a fullstack engineer at UPenn studying computer science. I like building things that sit at the intersection of data, design, and real-world problems. V3RSUS started as a class project for CIS 5450: Big Data Analytics with Aakash Jha and Kevin Jiang, and turned into something I wanted to actually ship. Outside of code, I follow MMA way too closely and I'm always looking for the next hard problem to work on.
-                </p>
 
-                <div class="about-links">
-                    <a href="https://github.com/Smokeybear10" target="_blank" rel="noopener">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                        GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/in/thomasou0" target="_blank" rel="noopener">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        LinkedIn
-                    </a>
-                </div>
+<!-- SECTION 02 — STACK -->
+<section class="section">
+    <div class="sec-num">02</div>
+    <div class="sec-head">The Stack</div>
+    <div class="sec-sub">what it&rsquo;s built on &middot; end to end</div>
 
-            </div>
-        </section>
-    </main>
+    <div class="meth-two">
+        <div class="meth-block">
+            <span class="meth-label">&#9655; Backend / ML</span>
+            <ul class="meth-list">
+                <li>Python 3.11 &middot; Flask &middot; Flask-CORS</li>
+                <li>scikit-learn (LogReg, Random Forest, Gradient Boosting)</li>
+                <li>pandas &middot; numpy for feature engineering</li>
+                <li>Hosted on Vercel serverless Python</li>
+                <li>Trained on 6,582 UFC fights (2001&ndash;2024)</li>
+            </ul>
+        </div>
+        <div class="meth-block">
+            <span class="meth-label">&#9655; Frontend / Deploy</span>
+            <ul class="meth-list">
+                <li>Vanilla HTML / CSS / JS &mdash; no framework</li>
+                <li>Archivo Black &middot; Space Grotesk &middot; Space Mono</li>
+                <li>Static assets over Vercel CDN</li>
+                <li>GitHub Actions for CI</li>
+                <li>Lighthouse 100 / 100 / 100 / 100</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- SECTION 03 — REFERENCES -->
+<section class="section red" id="references">
+    <div class="sec-num">03</div>
+    <div class="sec-head">References</div>
+    <div class="sec-sub">foundational work &middot; cited in the paper</div>
+
+    <div class="references-list">
+        <p>Brier, G. W. (1950). Verification of forecasts expressed in terms of probability. <em>Monthly Weather Review</em>, 78(1), 1&ndash;3.</p>
+        <p>Chen, T., &amp; Guestrin, C. (2016). XGBoost: A scalable tree boosting system. <em>Proc. 22nd ACM SIGKDD</em>, 785&ndash;794.</p>
+        <p>Gneiting, T., &amp; Raftery, A. E. (2007). Strictly proper scoring rules, prediction, and estimation. <em>JASA</em>, 102(477), 359&ndash;378.</p>
+        <p>Ke, G., et al. (2017). LightGBM: A highly efficient gradient boosting decision tree. <em>NeurIPS</em>, 30.</p>
+        <p>Lundberg, S. M., &amp; Lee, S. I. (2017). A unified approach to interpreting model predictions. <em>NeurIPS</em>, 30.</p>
+        <p>Platt, J. C. (1999). Probabilistic outputs for support vector machines. <em>Advances in Large Margin Classifiers</em>, MIT Press.</p>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer-brutal">
+    <div class="footer-grid">
+        <div>
+            <div class="footer-brand">V3RSUS<br>RESEARCH</div>
+            <div class="footer-tag">Ensemble machine learning for MMA prediction &middot; built for CIS 5450 @ Penn &middot; 6,582 UFC fights &middot; 2001&ndash;2024.</div>
+        </div>
+        <div>
+            <h5>Paper</h5>
+            <a href="/">Home</a>
+            <a href="predict.html">Predictor</a>
+            <a href="methodology.html">Methodology</a>
+        </div>
+        <div>
+            <h5>Build</h5>
+            <a href="https://github.com/Smokeybear10">Source</a>
+            <a href="https://thomasou.com">Thomas Ou</a>
+            <a href="https://linkedin.com/in/thomasou0">LinkedIn</a>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

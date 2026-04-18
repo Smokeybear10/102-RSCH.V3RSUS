@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V3RSUS // Fight Outcome Predictor</title>
+<meta name="description" content="Ensemble machine learning fight outcome predictor — UFC 2001–2024.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="predict.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- TOP STATUS BAR -->
+<div class="topbar">
+    <span><span class="live-dot"></span>V3RSUS//LIVE &middot; MODEL v3.2 &middot; 68.4% HOLDOUT</span>
+    <span>
+        <a href="/">HOME</a>
+        &middot;
+        <a href="predict.html">PREDICTOR</a>
+        &middot;
+        <a href="methodology.html">METHODOLOGY</a>
+        &middot;
+        <a href="about.html">ABOUT</a>
+    </span>
+</div>
+
+<!-- HERO POSTER -->
+<section class="poster">
+    <div class="poster-grid">
+
+        <!-- RED CORNER -->
+        <div class="poster-cell red">
+            <div class="corner-top">
+                <span class="corner-label">&#9726; Red Corner</span>
+                <span class="corner-record" id="profile-f1-record">&mdash;</span>
+            </div>
+            <h2 class="fighter-name" id="prob-f1-name">Fighter One</h2>
+            <div class="corner-meta">
+                <span class="meta-tag" id="profile-f1-stance"></span>
+                <span class="meta-tag" id="profile-f1-age"></span>
+            </div>
+            <div class="poster-pct" id="prob-f1-val">&mdash;</div>
+            <span id="profile-f1-name" style="display:none"></span>
+        </div>
+
+        <!-- CENTER: THE CALL -->
+        <div class="poster-cell center">
+            <div class="center-kicker">&mdash; The Prediction &mdash;</div>
+            <div class="vs-mark">
+                <span class="vs-arrow" id="winner-arrow">&#9668;</span>
+                <span class="vs-text">VS</span>
+                <span class="vs-arrow" id="winner-arrow-r">&#9658;</span>
+            </div>
+            <div class="center-title">Winner:<br><u id="winner-name">Pick a fight</u></div>
+            <div class="center-sub">ensemble mean &middot; Platt-calibrated &middot; ci 95%</div>
+        </div>
+
+        <!-- BLUE CORNER -->
+        <div class="poster-cell blue">
+            <div class="corner-top">
+                <span class="corner-label">&#9726; Blue Corner</span>
+                <span class="corner-record" id="profile-f2-record">&mdash;</span>
+            </div>
+            <h2 class="fighter-name" id="prob-f2-name">Fighter Two</h2>
+            <div class="corner-meta">
+                <span class="meta-tag" id="profile-f2-stance"></span>
+                <span class="meta-tag" id="profile-f2-age"></span>
+            </div>
+            <div class="poster-pct" id="prob-f2-val">&mdash;</div>
+            <span id="profile-f2-name" style="display:none"></span>
+        </div>
+    </div>
+
+    <!-- BIG PROB BAR -->
+    <div class="prob-row">
+        <span class="prob-label l">Red</span>
+        <div class="prob-bar-huge">
+            <div class="seg l" id="prob-f1-fill" style="width:50%"></div>
+            <div class="seg r" id="prob-f2-fill"></div>
+        </div>
+        <span class="prob-label r">Blue</span>
+    </div>
+</section>
+
+
+<!-- SECTION 01 — FORM -->
+<section class="section section-form">
+    <div class="sec-num">01</div>
+    <div class="sec-head">Pick A Fight.<br>Run The Numbers.</div>
+    <div class="sec-sub">input &gt; 86 engineered features &gt; 5-model ensemble &gt; calibrated probability</div>
+
+    <div class="form-brutal">
+        <div class="field">
+            <label>&mdash; Red Corner</label>
+            <div class="input-wrapper">
+                <input type="text" id="fighter1" placeholder="Alex Pereira" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="autocomplete1">
+                <ul class="autocomplete-list hidden" id="autocomplete1" role="listbox"></ul>
+            </div>
+        </div>
+        <div class="field">
+            <label>&mdash; Blue Corner</label>
+            <div class="input-wrapper">
+                <input type="text" id="fighter2" placeholder="Magomed Ankalaev" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="autocomplete2">
+                <ul class="autocomplete-list hidden" id="autocomplete2" role="listbox"></ul>
+            </div>
+        </div>
+        <button id="predict-btn" class="run-btn">
+            <span class="btn-text">RUN &rarr;</span>
+            <div class="loader hidden"></div>
+        </button>
+    </div>
+
+    <div class="form-hint">
+        <span class="hint-dot">&rang;</span>
+        Picks from <strong id="fighter-count">2,112</strong> fighters &middot; trained on <strong id="fight-count">6,582</strong> fights &middot; <strong id="feature-count">86</strong> engineered features
+    </div>
+</section>
+
+
+<!-- RESULT SECTION (hidden until prediction) -->
+<div id="result-section" class="hidden">
+
+    <!-- SECTION 02 — THE TAPE -->
+    <section class="section dark">
+        <div class="sec-num">02</div>
+        <div class="sec-head">Reading The Tape</div>
+        <div class="sec-sub">career_weighted &middot; &lambda;=0.3 exponential decay &middot; head_to_head</div>
+        <div id="comparison-rows" class="comparison-rows"></div>
+    </section>
+
+    <!-- SECTION 03 — WHY -->
+    <section class="section">
+        <div class="sec-num">03</div>
+        <div class="sec-head">Why The Call</div>
+        <div class="sec-sub">shap attribution &middot; top-k from ensemble mean</div>
+        <div id="key-factors" class="shap-wall"></div>
+    </section>
+
+    <!-- SECTION 04 — COUNCIL -->
+    <section class="section red">
+        <div class="sec-num">04</div>
+        <div class="sec-head">The Council<br>Votes.</div>
+        <div class="sec-sub">per_model_probs &middot; 5 classifiers &middot; equal-weight ensemble</div>
+        <div class="council-header">
+            <span class="ch-l" id="models-f1-name">Red Corner</span>
+            <span class="ch-r" id="models-f2-name">Blue Corner</span>
+        </div>
+        <div id="model-breakdown" class="model-stack"></div>
+    </section>
+
+    <!-- SECTION 05 — BATTLEFIELDS -->
+    <section class="section">
+        <div class="sec-num">05</div>
+        <div class="sec-head">Who Owns Which<br>Battlefield?</div>
+        <div class="sec-sub">category_scores &middot; 4 domains &middot; striking / grappling / physical / experience</div>
+        <div class="council-header">
+            <span class="ch-l" id="edge-f1-name">Red Corner</span>
+            <span class="ch-r" id="edge-f2-name">Blue Corner</span>
+        </div>
+        <div id="category-edges" class="edge-wall"></div>
+    </section>
+
+    <!-- SECTION 06 — HOW THEY FINISH -->
+    <section class="section dark">
+        <div class="sec-num">06</div>
+        <div class="sec-head">How They<br>Finish Fights</div>
+        <div class="sec-sub">career finish profile &middot; ko/tko &middot; submission &middot; decision</div>
+        <div class="method-grid">
+            <div class="method-col" id="method-f1"></div>
+            <div class="method-labels" id="method-labels"></div>
+            <div class="method-col" id="method-f2"></div>
+        </div>
+    </section>
+
+    <!-- SECTION 07 — CALIBRATION -->
+    <section class="section">
+        <div class="sec-num">07</div>
+        <div class="sec-head">Is The Model<br>Honest?</div>
+        <div class="sec-sub">calibration &middot; holdout 2022&ndash;2024 &middot; n=1,284 &middot; current bucket highlighted</div>
+
+        <div class="cal-poster">
+            <div class="cal-col"><div class="num">55%</div><div class="fill" style="height:55%"></div><div class="range">0.5&ndash;0.6</div></div>
+            <div class="cal-col"><div class="num">63%</div><div class="fill" style="height:63%"></div><div class="range">0.6&ndash;0.7</div></div>
+            <div class="cal-col hi"><div class="num">71%</div><div class="fill" style="height:71%"></div><div class="range">0.7&ndash;0.8 &larr;</div></div>
+            <div class="cal-col"><div class="num">78%</div><div class="fill" style="height:78%"></div><div class="range">0.8&ndash;0.9</div></div>
+            <div class="cal-col"><div class="num">84%</div><div class="fill" style="height:84%"></div><div class="range">0.9&ndash;1.0</div></div>
+        </div>
+        <div class="cal-note">This prediction sits in bucket <b>0.7&ndash;0.8</b>. On the holdout set, the model went <b>71.2%</b> on fights it called at this confidence.</div>
+    </section>
+
+    <!-- SECTION 08 — SIMILAR FIGHTS -->
+    <section class="section dark">
+        <div class="sec-num">08</div>
+        <div class="sec-head">Closest Fights<br>On Record</div>
+        <div class="sec-sub">cosine_sim &ge; 0.82 on 86-dim feature vector &middot; model went 4 of 5</div>
+
+        <div class="hist-stack">
+            <div class="hist-card right">
+                <div class="matchup">Adesanya &middot; Pereira II<small>UFC 287 &middot; Apr 2023 &middot; sim 0.91</small></div>
+                <div class="verdict">58&ndash;42<small>KO R2 &middot; correct</small></div>
+            </div>
+            <div class="hist-card right">
+                <div class="matchup">Blachowicz &middot; Adesanya<small>UFC 259 &middot; Mar 2021 &middot; sim 0.88</small></div>
+                <div class="verdict">42&ndash;58<small>DEC &middot; correct</small></div>
+            </div>
+            <div class="hist-card right">
+                <div class="matchup">Jones &middot; Reyes<small>UFC 247 &middot; Feb 2020 &middot; sim 0.86</small></div>
+                <div class="verdict">74&ndash;26<small>DEC &middot; correct</small></div>
+            </div>
+            <div class="hist-card right">
+                <div class="matchup">Pereira &middot; Prochazka I<small>UFC 303 &middot; Jun 2024 &middot; sim 0.84</small></div>
+                <div class="verdict">66&ndash;34<small>KO R2 &middot; correct</small></div>
+            </div>
+            <div class="hist-card wrong">
+                <div class="matchup">Whittaker &middot; Adesanya I<small>UFC 243 &middot; Oct 2019 &middot; sim 0.83</small></div>
+                <div class="verdict">52&ndash;48<small>KO R2 &middot; wrong</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 09 — DIRECT H2H (conditional) -->
+    <section class="section red hidden" id="history-card">
+        <div class="sec-num">09</div>
+        <div class="sec-head">They&rsquo;ve Met<br>Before.</div>
+        <div class="sec-sub">direct_h2h &middot; results from the tape itself</div>
+        <div id="historical-matchups" class="history-list"></div>
+    </section>
+
+    <!-- SECTION 10 — DOSSIER -->
+    <section class="section">
+        <div class="sec-num">10</div>
+        <div class="sec-head">The Dossier</div>
+        <div class="sec-sub">career_weighted statistics &middot; all values shown</div>
+
+        <div class="dossier-grid">
+            <div class="dossier-card red">
+                <div class="dossier-head">
+                    <span class="dossier-label">&mdash; Red Corner</span>
+                </div>
+                <div class="stat-grid" id="stats-f1"></div>
+            </div>
+            <div class="dossier-card blue">
+                <div class="dossier-head">
+                    <span class="dossier-label">&mdash; Blue Corner</span>
+                </div>
+                <div class="stat-grid" id="stats-f2"></div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-brutal">
+    <div class="footer-grid">
+        <div>
+            <div class="footer-brand">V3RSUS<br>APPENDIX</div>
+            <div class="footer-tag">Interactive supplement &middot; 6,582 UFC fights &middot; 2001&ndash;2024 &middot; built for CIS 5450 @ Penn</div>
+        </div>
+        <div>
+            <h5>Paper</h5>
+            <a href="/">The Research</a>
+            <a href="/methodology.html">Methodology</a>
+            <a href="/about.html">About</a>
+        </div>
+        <div>
+            <h5>Build</h5>
+            <a href="https://github.com/Smokeybear10">Source</a>
+            <a href="https://thomasou.com">Thomas Ou</a>
+            <a href="https://linkedin.com/in/thomasou0">LinkedIn</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
