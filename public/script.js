@@ -212,14 +212,14 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    finish(() => alert("Error: " + data.error));
+                    finish(() => { predictionEl.classList.add("idle"); alert("Error: " + data.error); });
                 } else {
                     finish(() => renderResults(data));
                 }
             })
             .catch(err => {
                 console.error(err);
-                finish(() => alert("Network error."));
+                finish(() => { predictionEl.classList.add("idle"); alert("Network error."); });
             });
     });
 
