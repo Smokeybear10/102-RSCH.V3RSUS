@@ -83,6 +83,15 @@ input:focus-visible, textarea:focus-visible {
     color: var(--ink);
     text-decoration: none;
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.mast-mark {
+    width: 1.35em;
+    height: 1.35em;
+    flex-shrink: 0;
+    display: block;
 }
 .mast-brand em {
     font-style: italic;
